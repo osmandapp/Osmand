@@ -116,6 +116,17 @@
 		android:layout="@layout/simple_divider_item"
 		android:selectable="false" />
 
+	<net.osmand.plus.settings.preferences.SwitchPreferenceEx
+		android:key="always_store_waypoint_in_current_track"
+		android:layout="@layout/preference_with_descr_dialog_and_switch"
+		android:summaryOff="@string/shared_string_disabled"
+		android:summaryOn="@string/shared_string_enabled"
+		android:title="@string/always_store_waypoint_in_current_track_title" />
+
+	<Preference
+		android:layout="@layout/simple_divider_item"
+		android:selectable="false" />
+
 	<Preference
 		android:key="open_tracks_description"
 		android:layout="@layout/preference_description"

@@ -88,6 +88,7 @@ public class OsmandMonitoringPlugin extends OsmandPlugin {
 		pluginPreferences.add(settings.LIVE_MONITORING_URL);
 		pluginPreferences.add(settings.LIVE_MONITORING_INTERVAL);
 		pluginPreferences.add(settings.LIVE_MONITORING_MAX_INTERVAL_TO_SEND);
+		pluginPreferences.add(settings.ALWAYS_STORE_WAYPOINT_IN_CURRENT_TRACK);
 	}
 
 	@Override

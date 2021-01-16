@@ -1225,7 +1225,8 @@ public class MapContextMenu extends MenuTitleController implements StateChangedL
 					return true;
 				}
 			};
-			GpxUiHelper.selectSingleGPXFile(mapActivity, true, callbackWithObject);
+
+			selectGPXFileOrUseCurrent(mapActivity, callbackWithObject);
 		}
 	}
 
@@ -1252,6 +1253,16 @@ public class MapContextMenu extends MenuTitleController implements StateChangedL
 				}
 			};
 
+			selectGPXFileOrUseCurrent(mapActivity, callbackWithObject);
+		}
+	}
+
+	private void selectGPXFileOrUseCurrent(MapActivity mapActivity, CallbackWithObject<GPXFile[]> callbackWithObject) {
+		if (mapActivity.getMyApplication().getSettings().ALWAYS_STORE_WAYPOINT_IN_CURRENT_TRACK.get()
+				&& OsmandPlugin.getEnabledPlugin(OsmandMonitoringPlugin.class) != null) {
+			callbackWithObject.processResult(null);
+			mapActivity.getMyApplication().getSettings().LAST_SELECTED_GPX_TRACK_FOR_NEW_POINT.set(null);
+		} else {
 			GpxUiHelper.selectSingleGPXFile(mapActivity, true, callbackWithObject);
 		}
 	}

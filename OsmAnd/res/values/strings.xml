@@ -12,6 +12,7 @@
 
 -->
 
+    <string name="always_store_waypoint_in_current_track_title">Always add track waypoints to the currently recording track</string>
     <string name="change_folder">Change folder</string>
     <string name="rename_track">Rename track</string>
     <string name="edit_track">Edit track</string>

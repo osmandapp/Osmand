@@ -99,6 +99,8 @@ public class MonitoringSettingsFragment extends BaseSettingsFragment
 		setupOpenNotesDescrPref();
 		setupOpenNotesPref();
 
+		setupAlwaysStoreWaypointInCurrentTrackPref();
+
 		setupCopyProfileSettingsPref();
 		setupResetToDefaultPref();
 	}
@@ -280,6 +282,11 @@ public class MonitoringSettingsFragment extends BaseSettingsFragment
 	private void setupOpenNotesPref() {
 		Preference openNotes = findPreference(OPEN_TRACKS);
 		openNotes.setIcon(getActiveIcon(R.drawable.ic_action_folder));
+	}
+
+	private void setupAlwaysStoreWaypointInCurrentTrackPref() {
+		SwitchPreferenceEx alwaysStoreWaypointInCurrentTrack = (SwitchPreferenceEx) findPreference(settings.ALWAYS_STORE_WAYPOINT_IN_CURRENT_TRACK.getId());
+		alwaysStoreWaypointInCurrentTrack.setDescription(getString(R.string.always_store_waypoint_in_current_track_title));
 	}
 
 	private void setupCopyProfileSettingsPref() {
