@@ -100,7 +100,7 @@ public class MapActivityLayers {
 
 	public MapActivityLayers(MapActivity activity) {
 		this.activity = activity;
-		this.mapWidgetRegistry = new MapWidgetRegistry(activity.getMyApplication());
+		this.mapWidgetRegistry = new MapWidgetRegistry(activity);
 	}
 
 	public MapWidgetRegistry getMapWidgetRegistry() {

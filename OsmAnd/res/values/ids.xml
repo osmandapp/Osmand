@@ -16,5 +16,8 @@
     <item name="av_notes_widget_state_audio" type="id"/>
     <item name="av_notes_widget_state_video" type="id"/>
     <item name="av_notes_widget_state_photo" type="id"/>
+    <!-- Elevation profile widget ids-->
+    <item name="elevation_widget_show_slopes" type="id"/>
+    <item name="elevation_widget_hide_slopes" type="id"/>
 
 </resources>

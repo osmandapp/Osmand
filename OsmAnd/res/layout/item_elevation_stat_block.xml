@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:osmand="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_sheet_list_item_height"
+    android:layout_marginStart="@dimen/content_padding"
+    android:layout_marginLeft="@dimen/content_padding"
+    android:layout_marginEnd="@dimen/content_padding"
+    android:layout_marginRight="@dimen/content_padding"
+    android:gravity="start|center_vertical"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|center_vertical"
+        android:baselineAligned="true"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/widget_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/map_widget_icon_margin"
+                android:layout_marginRight="@dimen/map_widget_icon_margin"
+                android:maxLines="1"
+                android:minWidth="10dp"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="@dimen/map_widget_text_size"
+                tools:text="360" />
+
+            <TextView
+                android:id="@+id/widget_text_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/widget_text"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_toEndOf="@+id/widget_text"
+                android:layout_toRightOf="@+id/widget_text"
+                android:maxLines="1"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="@dimen/map_widget_text_size_small"
+                tools:text="m" />
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/content_padding_half"
+            android:layout_marginLeft="@dimen/content_padding_half">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image"
+                android:layout_width="@dimen/context_menu_transport_icon_size"
+                android:layout_height="@dimen/context_menu_transport_icon_size"
+                android:layout_gravity="center_vertical|end"
+                osmand:tint="?attr/default_icon_color"
+                tools:src="@drawable/ic_action_track_16" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:ellipsize="end"
+        android:gravity="start|center_vertical"
+        android:letterSpacing="@dimen/description_letter_spacing"
+        android:lines="1"
+        android:maxWidth="@dimen/grid_menu_item_width"
+        android:minWidth="@dimen/map_route_buttons_width"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="@dimen/default_desc_text_size"
+        tools:text="@string/distance" />
+
+</LinearLayout>

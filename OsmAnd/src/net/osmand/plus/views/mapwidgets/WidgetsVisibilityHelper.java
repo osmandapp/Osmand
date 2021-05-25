@@ -136,6 +136,24 @@ public class WidgetsVisibilityHelper {
 				&& (additionalDialogsHide || !isPortrait());
 	}
 
+	public boolean shouldShowElevationProfileWidget() {
+		return settings.SHOW_ELEVATION_PROFILE_WIDGET.get()
+				&& isRouteCalculated()
+				&& !isInChangeMarkerPositionMode()
+				&& !isInGpxDetailsMode()
+				&& !isInMeasurementToolMode()
+				&& !isInPlanRouteMode()
+				&& !isInTrackAppearanceMode()
+				&& !isInTrackMenuMode()
+				&& !isInRouteLineAppearanceMode()
+				&& !isMapRouteInfoMenuVisible()
+				&& !isInChoosingRoutesMode()
+				&& !isInWaypointsChoosingMode()
+				&& !isInFollowTrackMode()
+				&& !isContextMenuFragmentVisible()
+				&& !isMultiSelectionMenuFragmentVisible();
+	}
+
 	private boolean isQuickActionLayerOn() {
 		return mapLayers.getMapQuickActionLayer().isLayerOn();
 	}
@@ -224,6 +242,10 @@ public class WidgetsVisibilityHelper {
 
 	private boolean isTrackDetailsMenuOpened() {
 		return mapActivity.getTrackDetailsMenu().isVisible();
+	}
+
+	private boolean isRouteCalculated() {
+		return mapActivity.getRoutingHelper().isRouteCalculated();
 	}
 
 	private boolean isPortrait() {

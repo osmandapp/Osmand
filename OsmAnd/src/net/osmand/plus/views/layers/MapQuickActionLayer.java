@@ -174,29 +174,41 @@ public class MapQuickActionLayer extends OsmandMapLayer implements QuickActionRe
 
     private void setQuickActionButtonMargin(FrameLayout.LayoutParams params,
                                             Pair<Integer, Integer> fabMargin,
-                                            int defRightMargin, int defBottomMargin) {
+                                            int defRightMargin,
+                                            int defBottomMargin) {
+        int rightMargin = fabMargin != null ? fabMargin.first : defRightMargin;
+        int bottomMargin = fabMargin != null ? fabMargin.second : defBottomMargin;
+        bottomMargin += calculateAdditionalBottomMargin();
+
         int screenHeight = AndroidUtils.getScreenHeight(mapActivity);
         int screenWidth = AndroidUtils.getScreenWidth(mapActivity);
         int btnHeight = quickActionButton.getHeight();
         int btnWidth = quickActionButton.getWidth();
-        int rightMargin;
-        int bottomMargin;
-        if (fabMargin != null) {
-            rightMargin = fabMargin.first;
-            bottomMargin = fabMargin.second;
-            if (rightMargin < 0 || rightMargin > screenWidth - btnWidth) {
-                rightMargin = defRightMargin;
-            }
-            if (bottomMargin < 0 || bottomMargin > screenHeight - btnHeight) {
-                bottomMargin = defBottomMargin;
-            }
-        } else {
+        int maxRightMargin = screenWidth - btnWidth;
+        int maxBottomMargin = screenHeight - btnHeight;
+
+        // check limits
+        if (rightMargin < 0) {
             rightMargin = defRightMargin;
-            bottomMargin = defBottomMargin;
+        } else if (rightMargin > maxRightMargin) {
+            rightMargin = maxRightMargin;
         }
+        if (bottomMargin < 0) {
+            bottomMargin = defBottomMargin;
+        } else if (bottomMargin > maxBottomMargin) {
+            bottomMargin = maxBottomMargin;
+        }
+
         params.rightMargin = rightMargin;
         params.bottomMargin = bottomMargin;
         quickActionButton.setLayoutParams(params);
+    }
+
+    private int calculateAdditionalBottomMargin() {
+        if (mapActivity.getWidgetsVisibilityHelper().shouldShowElevationProfileWidget()) {
+            return mapActivity.findViewById(R.id.elevation_profile_widget_layout).getHeight();
+        }
+        return 0;
     }
 
     private int calculateTotalSizePx(@DimenRes int... dimensId) {

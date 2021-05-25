@@ -243,6 +243,13 @@
         tools:visibility="visible"/>
 
     <include
+        layout="@layout/elevation_profile_widget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        tools:visibility="gone" />
+
+    <include
         layout="@layout/add_gpx_point_bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

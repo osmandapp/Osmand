@@ -590,6 +590,7 @@ public class MapActivity extends OsmandActionBarActivity implements DownloadEven
 			public void finish() {
 				mapRouteInfoMenu.routeCalculationFinished();
 				dashboardOnMap.routeCalculationFinished();
+				mapLayers.getMapInfoLayer().routeCalculationFinished();
 				pb.setVisibility(View.GONE);
 			}
 		};

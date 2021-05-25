@@ -1092,7 +1092,13 @@ public class GpxUiHelper {
 		setupGPXChart(mChart, yLabelsCount, 24f, 16f, settings.isLightContent(), true);
 	}
 
-	public static void setupGPXChart(LineChart mChart, int yLabelsCount, float topOffset, float bottomOffset, boolean light, boolean useGesturesAndScale) {
+	public static void setupGPXChart(LineChart mChart, int yLabelsCount, float topOffset, float bottomOffset,
+	                                 boolean light, boolean useGesturesAndScale) {
+		setupGPXChart(mChart, yLabelsCount, topOffset, bottomOffset, light, useGesturesAndScale, null);
+	}
+
+	public static void setupGPXChart(LineChart mChart, int yLabelsCount, float topOffset, float bottomOffset,
+	                                 boolean light, boolean useGesturesAndScale, Drawable markerIcon) {
 		if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 			mChart.setHardwareAccelerationEnabled(false);
 		} else {
@@ -1115,7 +1121,7 @@ public class GpxUiHelper {
 
 		// create a custom MarkerView (extend MarkerView) and specify the layout
 		// to use for it
-		GPXMarkerView mv = new GPXMarkerView(mChart.getContext());
+		GPXMarkerView mv = new GPXMarkerView(mChart.getContext(), markerIcon);
 		mv.setChartView(mChart); // For bounds control
 		mChart.setMarker(mv); // Set the marker to the chart
 		mChart.setDrawMarkers(true);
@@ -1986,11 +1992,17 @@ public class GpxUiHelper {
 		private View textSpdView;
 		private View textSlpView;
 
-		public GPXMarkerView(Context context) {
+		public GPXMarkerView(@NonNull Context context,
+		                     @Nullable Drawable icon) {
 			super(context, R.layout.chart_marker_view);
 			textAltView = findViewById(R.id.text_alt_container);
 			textSpdView = findViewById(R.id.text_spd_container);
 			textSlpView = findViewById(R.id.text_slp_container);
+			if (icon != null) {
+				findViewById(R.id.icon_divider).setVisibility(VISIBLE);
+				findViewById(R.id.icon_container).setVisibility(VISIBLE);
+				((ImageView) findViewById(R.id.icon)).setImageDrawable(icon);
+			}
 		}
 
 		// callbacks everytime the MarkerView is redrawn, can be used to update the

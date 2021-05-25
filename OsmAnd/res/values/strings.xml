@@ -34,6 +34,12 @@
     <string name="backup_and_restore">Backup &amp; Restore</string>
     <string name="ltr_or_rtl_triple_combine_via_space">%1$s %2$s %3$s</string>
     <string name="search_more">Search more…</string>
+    <string name="shared_string_show_slope">Show slope</string>
+    <string name="shared_string_hide_slope">Hide slope</string>
+    <string name="shared_string_grade">Grade</string>
+    <string name="shared_string_uphill">Uphill</string>
+    <string name="shared_string_downhill">Downhill</string>
+    <string name="elevation_profile">Elevation profile</string>
     <string name="routing_attr_avoid_low_emission_zone_name">Avoid low emission zones</string>
     <string name="routing_attr_avoid_low_emission_zone_description">Avoid low emission zones</string>
     <string name="poi_routes">Routes</string>

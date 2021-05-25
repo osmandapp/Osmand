@@ -974,6 +974,14 @@ public class GPXUtilities {
 			this.segment = s;
 		}
 
+		public SplitSegment(int startInd, int endInd, TrkSegment s) {
+			startPointInd = startInd;
+			startCoeff = 0;
+			endPointInd = endInd - 2;
+			endCoeff = 1;
+			this.segment = s;
+		}
+
 		public SplitSegment(TrkSegment s, int pointInd, double cf) {
 			this.segment = s;
 			this.startPointInd = pointInd;
@@ -1290,9 +1298,23 @@ public class GPXUtilities {
 		}
 
 		public GPXTrackAnalysis getAnalysis(long fileTimestamp) {
+			return getAnalysis(fileTimestamp, null, null);
+		}
+
+		public GPXTrackAnalysis getAnalysis(long fileTimestamp,
+		                                    Double fromDistance,
+		                                    Double toDistance) {
 			GPXTrackAnalysis g = new GPXTrackAnalysis();
 			g.wptPoints = points.size();
 			g.wptCategoryNames = getWaypointCategories(true);
+			List<SplitSegment> segments = getSplitSegments(g, fromDistance, toDistance);
+			g.prepareInformation(fileTimestamp, segments.toArray(new SplitSegment[0]));
+			return g;
+		}
+
+		private List<SplitSegment> getSplitSegments(GPXTrackAnalysis g,
+		                                            Double fromDistance,
+		                                            Double toDistance) {
 			List<SplitSegment> splitSegments = new ArrayList<>();
 			for (int i = 0; i < tracks.size(); i++) {
 				Track subtrack = tracks.get(i);
@@ -1300,13 +1322,38 @@ public class GPXUtilities {
 					if (!segment.generalSegment) {
 						g.totalTracks++;
 						if (segment.points.size() > 1) {
-							splitSegments.add(new SplitSegment(segment));
+							splitSegments.add(createSplitSegment(segment, fromDistance, toDistance));
 						}
 					}
 				}
 			}
-			g.prepareInformation(fileTimestamp, splitSegments.toArray(new SplitSegment[0]));
-			return g;
+			return splitSegments;
+		}
+
+		private SplitSegment createSplitSegment(TrkSegment segment,
+		                                        Double fromDistance,
+		                                        Double toDistance) {
+			if (fromDistance != null && toDistance != null) {
+				int startInd = getPointIndexByDistance(segment.points, fromDistance);
+				int endInd = getPointIndexByDistance(segment.points, toDistance);
+				return new SplitSegment(startInd, endInd, segment);
+			} else {
+				return new SplitSegment(segment);
+			}
+		}
+
+		public int getPointIndexByDistance(List<WptPt> points, double distance) {
+			int index = 0;
+			double minDistanceChange = 99999;
+			for (int i = 0; i < points.size(); i++) {
+				WptPt point = points.get(i);
+				double currentDistanceChange = Math.abs(point.distance - distance);
+				if (currentDistanceChange < minDistanceChange) {
+					minDistanceChange = currentDistanceChange;
+					index = i;
+				}
+			}
+			return index;
 		}
 
 		public boolean containsRoutePoint(WptPt point) {

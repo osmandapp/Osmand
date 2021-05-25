@@ -98,6 +98,8 @@
 	<dimen name="gpx_text_top_margin">6dp</dimen>
 	<dimen name="gpx_group_button_height">60dp</dimen>
 	<dimen name="gpx_group_button_width">96dp</dimen>
+	<dimen name="chart_marker_horizontal_padding">6dp</dimen>
+	<dimen name="chart_marker_vertical_padding">2dp</dimen>
 
 	<dimen name="dashboard_parking_left_margin">16dp</dimen>
 	<dimen name="dashboard_parking_icon_size">48dp</dimen>
@@ -250,6 +252,7 @@
 	<dimen name="content_padding_small">12dp</dimen>
 	<dimen name="content_padding_half">8dp</dimen>
 	<dimen name="content_padding_small_half">6dp</dimen>
+	<dimen name="horizontal_divider_height">24dp</dimen>
 	<dimen name="bottom_sheet_content_padding_small">8dp</dimen>
 	<dimen name="measurement_tool_menu_title_padding_top">13dp</dimen>
 	<dimen name="measurement_tool_menu_title_padding_bottom">5dp</dimen>

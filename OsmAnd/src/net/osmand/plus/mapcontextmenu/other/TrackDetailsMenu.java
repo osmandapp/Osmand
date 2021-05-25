@@ -57,7 +57,7 @@ import java.util.List;
 
 public class TrackDetailsMenu {
 
-	private static final int MAX_DISTANCE_LOCATION_PROJECTION = 20; // in meters
+	public static final int MAX_DISTANCE_LOCATION_PROJECTION = 20; // in meters
 
 	@Nullable
 	private MapActivity mapActivity;
@@ -293,16 +293,20 @@ public class TrackDetailsMenu {
 
 	@Nullable
 	private TrkSegment getTrackSegment(@NonNull LineChart chart) {
-		TrkSegment segment = this.segment;
 		if (segment == null) {
-			LineData lineData = chart.getLineData();
-			List<ILineDataSet> ds = lineData != null ? lineData.getDataSets() : null;
-			GpxDisplayItem gpxItem = getGpxItem();
-			if (ds != null && ds.size() > 0 && gpxItem != null) {
-				this.segment = GPXItemPagerAdapter.getSegmentForAnalysis(gpxItem, gpxItem.analysis);
-			}
+			segment = getTrackSegment(chart, getGpxItem());
 		}
 		return segment;
+	}
+
+	public static TrkSegment getTrackSegment(@NonNull LineChart chart,
+	                                         @Nullable GpxDisplayItem gpxItem) {
+		LineData lineData = chart.getLineData();
+		List<ILineDataSet> ds = lineData != null ? lineData.getDataSets() : null;
+		if (ds != null && ds.size() > 0 && gpxItem != null) {
+			return GPXItemPagerAdapter.getSegmentForAnalysis(gpxItem, gpxItem.analysis);
+		}
+		return null;
 	}
 
 	@Nullable

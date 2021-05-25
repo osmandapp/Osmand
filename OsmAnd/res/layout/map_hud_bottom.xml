@@ -181,6 +181,9 @@
         <include layout="@layout/recording_note_fragment"
             tools:visibility="gone"/>
 
+		<include layout="@layout/elevation_profile_widget"
+			tools:visibility="gone" />
+
         <include layout="@layout/move_marker_bottom_sheet"
                  tools:visibility="gone"/>
 
