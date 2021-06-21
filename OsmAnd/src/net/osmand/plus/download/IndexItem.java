@@ -94,7 +94,7 @@ public class IndexItem extends DownloadItem implements Comparable<IndexItem> {
 	}
 
 	@Override
-	protected double getSizeToDownloadInMb() {
+	public double getSizeToDownloadInMb() {
 		return Algorithms.parseDoubleSilently(size, 0.0);
 	}
 

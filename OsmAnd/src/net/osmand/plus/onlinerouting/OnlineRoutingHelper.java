@@ -8,8 +8,11 @@ import net.osmand.data.LatLon;
 import net.osmand.osm.io.NetworkUtils;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.Version;
+import net.osmand.plus.onlinerouting.engine.EngineType;
 import net.osmand.plus.onlinerouting.engine.OnlineRoutingEngine;
 import net.osmand.plus.onlinerouting.engine.OnlineRoutingEngine.OnlineRoutingResponse;
+import net.osmand.plus.routing.RouteCalculationParams;
+import net.osmand.plus.settings.backend.ApplicationMode;
 import net.osmand.plus.settings.backend.OsmandSettings;
 import net.osmand.util.Algorithms;
 
@@ -24,6 +27,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,9 +103,9 @@ public class OnlineRoutingHelper {
 	}
 
 	@Nullable
-	private OnlineRoutingResponse calculateRouteOnline(@NonNull OnlineRoutingEngine engine,
-	                                                   @NonNull List<LatLon> path,
-	                                                   boolean leftSideNavigation) throws IOException, JSONException {
+	public OnlineRoutingResponse calculateRouteOnline(@NonNull OnlineRoutingEngine engine,
+													  @NonNull List<LatLon> path,
+													  boolean leftSideNavigation) throws IOException, JSONException {
 		String url = engine.getFullUrl(path);
 		String content = makeRequest(url);
 		return engine.parseResponse(content, app, leftSideNavigation);
@@ -127,6 +131,20 @@ public class OnlineRoutingHelper {
 		} catch (IOException ignored) {
 		}
 		return content.toString();
+	}
+
+	@Nullable
+	public OnlineRoutingEngine startOsrmEngine(@NonNull ApplicationMode mode) {
+		boolean isCarBicycleFoot = mode.isDerivedRoutingFrom(ApplicationMode.CAR)
+				|| mode.isDerivedRoutingFrom(ApplicationMode.BICYCLE)
+				|| mode.isDerivedRoutingFrom(ApplicationMode.PEDESTRIAN);
+		Map<String, String> paramsOnlineRouting = new HashMap<>();
+		paramsOnlineRouting.put(EngineParameter.VEHICLE_KEY.name(), mode.getStringKey());
+		if (isCarBicycleFoot) {
+			return EngineType.OSRM_TYPE.newInstance(paramsOnlineRouting);
+		} else {
+			return null;
+		}
 	}
 
 	private InputStream getInputStream(@NonNull HttpURLConnection connection) throws IOException {

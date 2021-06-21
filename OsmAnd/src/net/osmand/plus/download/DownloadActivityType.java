@@ -10,7 +10,6 @@ import net.osmand.map.OsmandRegions;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.R;
 import net.osmand.plus.Version;
-import net.osmand.plus.activities.LocalIndexInfo;
 import net.osmand.plus.helpers.FileNameTranslationHelper;
 import net.osmand.util.Algorithms;
 
@@ -28,7 +27,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import static net.osmand.IndexConstants.BINARY_MAP_INDEX_EXT;
-import static net.osmand.plus.activities.LocalIndexHelper.LocalIndexType.SRTM_DATA;
 
 public class DownloadActivityType {
 	private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.US);
@@ -347,7 +345,7 @@ public class DownloadActivityType {
 		return "";
 	}
 
-	public String getVisibleName(DownloadItem downloadItem, Context ctx, OsmandRegions osmandRegions, boolean includingParent) {
+	public String getVisibleName(DownloadItem downloadItem, Context ctx, OsmandRegions osmandRegions, boolean includeParent) {
 		if (this == VOICE_FILE) {
 			String fileName = downloadItem.getFileName();
 			if (fileName.endsWith(IndexConstants.VOICE_INDEX_EXT_ZIP)) {
@@ -378,7 +376,7 @@ public class DownloadActivityType {
 		if (basename.contains("addresses-nationwide")) {
 			final int ind = basename.indexOf("addresses-nationwide");
 			String downloadName = basename.substring(0, ind - 1) + basename.substring(ind + "addresses-nationwide".length());
-			return osmandRegions.getLocaleName(downloadName, includingParent) +
+			return osmandRegions.getLocaleName(downloadName, includeParent) +
 					" " + ctx.getString(R.string.index_item_nation_addresses);
 		} else if (basename.startsWith("Depth_")) {
 			final int extInd = basename.indexOf("osmand_ext");
@@ -387,7 +385,7 @@ public class DownloadActivityType {
 			return ctx.getString(R.string.download_depth_countours) + " " + Algorithms.capitalizeFirstLetter(downloadName);
 		}
 
-		return osmandRegions.getLocaleName(basename, includingParent);
+		return osmandRegions.getLocaleName(basename, includeParent);
 	}
 
 	public String getTargetFileName(IndexItem item) {

@@ -2,8 +2,11 @@ package net.osmand.plus.mapmarkers;
 
 import android.util.Pair;
 
+import androidx.annotation.Nullable;
+
 import net.osmand.Location;
 import net.osmand.data.LatLon;
+import net.osmand.map.WorldRegion;
 import net.osmand.plus.routing.RouteCalculationProgressCallback;
 import net.osmand.plus.settings.backend.ApplicationMode;
 import net.osmand.GPXUtilities.TrkSegment;
@@ -236,7 +239,10 @@ public class MarkersPlanRouteContext {
 
 			@Override
 			public void requestPrivateAccessRouting() {
+			}
 
+			@Override
+			public void updateMissingMaps(@Nullable List<WorldRegion> missingMaps, boolean onlineSearch) {
 			}
 
 			@Override

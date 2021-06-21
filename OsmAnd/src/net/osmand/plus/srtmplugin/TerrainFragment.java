@@ -49,7 +49,6 @@ import org.apache.commons.logging.Log;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.List;
-import java.util.Locale;
 
 import static net.osmand.plus.UiUtilities.CustomRadioButtonType.END;
 import static net.osmand.plus.UiUtilities.CustomRadioButtonType.START;

@@ -67,7 +67,7 @@ public class SrtmDownloadItem extends DownloadItem {
 	}
 
 	@Override
-	protected double getSizeToDownloadInMb() {
+	public double getSizeToDownloadInMb() {
 		return getIndexItem().getSizeToDownloadInMb();
 	}
 

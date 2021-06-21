@@ -1033,11 +1033,7 @@ public abstract class MenuController extends BaseMenuController implements Colla
 		}
 
 		private boolean checkIfObjectDownloaded(ResourceManager rm, String downloadName) {
-			final String regionName = Algorithms.capitalizeFirstLetterAndLowercase(downloadName)
-					+ IndexConstants.BINARY_MAP_INDEX_EXT;
-			final String roadsRegionName = Algorithms.capitalizeFirstLetterAndLowercase(downloadName) + ".road"
-					+ IndexConstants.BINARY_MAP_INDEX_EXT;
-			boolean downloaded = rm.getIndexFileNames().containsKey(regionName) || rm.getIndexFileNames().containsKey(roadsRegionName);
+			boolean downloaded = rm.checkIfObjectDownloaded(downloadName);
 			if (!downloaded) {
 				WorldRegion region = rm.getOsmandRegions().getRegionDataByDownloadName(downloadName);
 				if (region != null && region.getSuperregion() != null && region.getSuperregion().isRegionMapDownload()) {

@@ -354,7 +354,7 @@ public class GpxUiHelper {
 											  final File dir, String filename, final int position) {
 		final Application app = activity.getApplication();
 		final File f = new File(dir, filename);
-		loadGPXFileInDifferentThread(activity, new CallbackWithObject<GPXUtilities.GPXFile[]>() {
+		loadGPXFileInDifferentThread(activity, new CallbackWithObject<GPXFile[]>() {
 
 			@Override
 			public boolean processResult(GPXFile[] result) {
@@ -2127,15 +2127,16 @@ public class GpxUiHelper {
 		}
 	}
 
-
+	@NonNull
 	public static GPXFile makeGpxFromRoute(RouteCalculationResult route, OsmandApplication app) {
 		return makeGpxFromLocations(route.getRouteLocations(), app);
 	}
 
+	@NonNull
 	public static GPXFile makeGpxFromLocations(List<Location> locations, OsmandApplication app) {
 		double lastHeight = HEIGHT_UNDEFINED;
 		double lastValidHeight = Double.NaN;
-		GPXFile gpx = new GPXUtilities.GPXFile(Version.getFullVersion(app));
+		GPXFile gpx = new GPXFile(Version.getFullVersion(app));
 		if (locations != null) {
 			Track track = new Track();
 			TrkSegment seg = new TrkSegment();

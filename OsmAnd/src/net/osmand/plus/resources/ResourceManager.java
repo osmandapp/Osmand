@@ -301,6 +301,14 @@ public class ResourceManager {
 		resourceListeners.remove(listener);
 	}
 
+	public boolean checkIfObjectDownloaded(String downloadName) {
+		final String regionName = Algorithms.capitalizeFirstLetterAndLowercase(downloadName)
+				+ IndexConstants.BINARY_MAP_INDEX_EXT;
+		final String roadsRegionName = Algorithms.capitalizeFirstLetterAndLowercase(downloadName) + ".road"
+				+ IndexConstants.BINARY_MAP_INDEX_EXT;
+		return indexFileNames.containsKey(regionName) || indexFileNames.containsKey(roadsRegionName);
+	}
+
 	public List<MapTileLayerSize> getMapTileLayerSizes() {
 		return mapTileLayerSizes;
 	}

@@ -1,9 +1,5 @@
 package net.osmand.util;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import net.osmand.Location;
 import net.osmand.data.LatLon;
 import net.osmand.data.MapObject;
@@ -11,7 +7,10 @@ import net.osmand.data.QuadPoint;
 import net.osmand.data.QuadRect;
 import net.osmand.util.GeoPointParserUtil.GeoParsedPoint;
 
-import static com.jwetherell.openmap.common.MoreMath.QUAD_PI;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import static com.jwetherell.openmap.common.MoreMath.QUAD_PI_D;
 
 
@@ -103,34 +102,27 @@ public class MapUtils {
 	}
 
 	public static Location calculateMidPoint(Location s1, Location s2) {
-		double lat1 = s1.getLatitude() / 180 * Math.PI;
-		double lon1 = s1.getLongitude() / 180 * Math.PI;
-		double lat2 = s2.getLatitude() / 180 * Math.PI;
-		double lon2 = s2.getLongitude() / 180 * Math.PI;
-		double Bx = Math.cos(lat2) * Math.cos(lon2 - lon1);
-		double By = Math.cos(lat2) * Math.sin(lon2 - lon1);
-		double latMid = Math.atan2(Math.sin(lat1) + Math.sin(lat2),
-				Math.sqrt((Math.cos(lat1) + Bx) * (Math.cos(lat1) + Bx) + By * By));
-		double lonMid = lon1 + Math.atan2(By, Math.cos(lat1) + Bx);
-		Location r = new Location("");
-		r.setLatitude(MapUtils.checkLatitude(latMid * 180 / Math.PI));
-		r.setLongitude(MapUtils.checkLongitude(lonMid * 180 / Math.PI));
-		return r;
+		double[] latLon = calculateMidPoint(s1.getLatitude(), s1.getLongitude(), s2.getLatitude(), s2.getLongitude());
+		return new Location("", latLon[0], latLon[1]);
 	}
 
 	public static LatLon calculateMidPoint(LatLon s1, LatLon s2) {
-		double lat1 = s1.getLatitude() / 180 * Math.PI;
-		double lon1 = s1.getLongitude() / 180 * Math.PI;
-		double lat2 = s2.getLatitude() / 180 * Math.PI;
-		double lon2 = s2.getLongitude() / 180 * Math.PI;
+		double[] latLon = calculateMidPoint(s1.getLatitude(), s1.getLongitude(), s2.getLatitude(), s2.getLongitude());
+		return new LatLon(latLon[0], latLon[1]);
+	}
+
+	public static double[] calculateMidPoint(double firstLat, double firstLon, double secondLat, double secondLon) {
+		double lat1 = firstLat / 180 * Math.PI;
+		double lon1 = firstLon / 180 * Math.PI;
+		double lat2 = secondLat / 180 * Math.PI;
+		double lon2 = secondLon / 180 * Math.PI;
 		double Bx = Math.cos(lat2) * Math.cos(lon2 - lon1);
 		double By = Math.cos(lat2) * Math.sin(lon2 - lon1);
 		double latMid = Math.atan2(Math.sin(lat1) + Math.sin(lat2),
 				Math.sqrt((Math.cos(lat1) + Bx) * (Math.cos(lat1) + Bx) + By * By));
 		double lonMid = lon1 + Math.atan2(By, Math.cos(lat1) + Bx);
-		LatLon m = new LatLon(MapUtils.checkLatitude(latMid * 180 / Math.PI),
-				MapUtils.checkLongitude(lonMid * 180 / Math.PI));
-		return m;
+		return new double[] {MapUtils.checkLatitude(latMid * 180 / Math.PI),
+				MapUtils.checkLongitude(lonMid * 180 / Math.PI)};
 	}
 
 	public static double getOrthogonalDistance(double lat, double lon, double fromLat, double fromLon, double toLat, double toLon) {

@@ -9,6 +9,7 @@ import net.osmand.Location;
 import net.osmand.LocationsHolder;
 import net.osmand.binary.BinaryMapRouteReaderAdapter.RouteRegion;
 import net.osmand.data.LatLon;
+import net.osmand.map.WorldRegion;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.measurementtool.command.ApplyGpxApproximationCommand;
 import net.osmand.plus.measurementtool.command.MeasurementCommandManager;
@@ -981,6 +982,10 @@ public class MeasurementEditingContext implements IRouteSettingsListener {
 
 			@Override
 			public void requestPrivateAccessRouting() {
+			}
+
+			@Override
+			public void updateMissingMaps(@Nullable List<WorldRegion> missingMaps, boolean onlineSearch) {
 			}
 
 			@Override
