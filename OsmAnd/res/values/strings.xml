@@ -2397,7 +2397,7 @@
     <string name="shared_string_add">Add</string>
     <string name="shared_string_add_to_favorites">Add to \'Favorites\'</string>
     <string name="shared_string_my_location">My Position</string>
-    <string name="shared_string_my_places">My Places</string>
+    <string name="shared_string_my_places">My places</string>
     <string name="shared_string_my_favorites">Favorites</string>
     <string name="shared_string_tracks">Tracks</string>
     <string name="shared_string_currently_recording_track">Currently recording track</string>
@@ -2410,7 +2410,7 @@
     <string name="track_points">Track points</string>
     <string name="shared_string_online_maps">Online maps</string>
     <string name="osmand_rastermaps_plugin_description">Access many types of online (so called tile or raster) maps, from predefined OSM tiles (like Mapnik) to satellite images, and special purpose layers like weather maps, climate maps, geological maps, hillshade layers, etc.\n\n
-    Any of these maps can either be used as the main (base) map to be displayed, or as an overlay or underlay to another base map (like OsmAnd\'s standard offline maps). Certain elements of the OsmAnd vector maps can be hidden via the \'Configure map\' menu to make any underlay map more visible.\n\n
+    Any of these maps can either be used as the main (base) map to be displayed, or as an overlay or underlay to another base map (like OsmAnd\'s offline vector maps). Certain elements of the OsmAnd vector maps can be hidden via the \'Configure map\' menu to make any underlay map more visible.\n\n
     Download tile maps directly online, or prepared them for offline use (manually copied to OsmAnd\'s data folder) as an SQLite database which can be produced by a variety of 3rd party map preparation tools.
 	</string>
     <string name="record_plugin_name">Trip recording</string>
@@ -2419,11 +2419,11 @@
 	</string>
     <string name="srtm_paid_version_title">Contour lines plugin</string>
     <string name="osmand_srtm_short_description_80_chars">OsmAnd plugin for offline contour lines</string>
-    <string name="osmand_srtm_long_description_1000_chars">This plugin provides both a contour line overlay and a (relief) hillshade layer to be displayed on top of OsmAnd\'s standard maps. This functionality will be much appreciated by athletes, hikers, trekkers, and anybody interested in the relief structure of a landscape.\n\n
+    <string name="osmand_srtm_long_description_1000_chars">This plugin provides both a contour line overlay and a (relief) hillshade layer to be displayed on top of OsmAnd\'s base maps. This functionality will be much appreciated by athletes, hikers, trekkers, and anybody interested in the relief structure of a landscape.\n\n
     The global data (between 70 ° north and 70 ° south) is based on measurements by SRTM (Shuttle Radar Topography Mission) and ASTER (Advanced Spaceborne Thermal Emission and Reflection Radiometer), an imaging instrument onboard Terra, the flagship satellite of NASA\'s Earth Observing System. ASTER is a cooperative effort between NASA, Japan\'s Ministry of Economy, Trade and Industry (METI), and Japan Space Systems (J-spacesystems).
 	</string>
     <string name="srtm_plugin_name">Contour lines</string>
-    <string name="srtm_plugin_description">This plugin provides both a contour line overlay and a (relief) hillshade layer to be displayed on top of OsmAnd\'s standard maps. This functionality will be much appreciated by athletes, hikers, trekkers, and anybody interested in the relief structure of a landscape. (Please note that contour line and/or relief data are separate, additional downloads available after activating the plugin.)
+    <string name="srtm_plugin_description">This plugin provides both a contour line overlay and a (relief) hillshade layer to be displayed on top of OsmAnd\'s base maps. This functionality will be much appreciated by athletes, hikers, trekkers, and anybody interested in the relief structure of a landscape. (Please note that contour line and/or relief data are separate, additional downloads available after activating the plugin.)
 		\n\nThe global data (between 70 ° north and 70 ° south) is based on measurements by SRTM (Shuttle Radar Topography Mission) and ASTER (Advanced Spaceborne Thermal Emission and Reflection Radiometer), an imaging instrument onboard Terra, the flagship satellite of NASA\'s Earth Observing System. ASTER is a cooperative effort between NASA, Japan\'s Ministry of Economy, Trade and Industry (METI), and Japan Space Systems (J-spacesystems).
 	</string>
     <string name="plugin_touringview_name">Touring map view</string>
@@ -2431,7 +2431,7 @@
 		\n\nThis view provides, at any given map zoom, the maximum amount of travel details available in the map data (particularly roads, tracks, paths, and orientation marks).
 		\n\nIt also clearly depicts all types of roads unambiguously by color coding, which is useful when e.g. driving large vehicles.
 		\n\nAnd it provides special touring options like showing bicycle routes or Alpine mountain routes.
-		\n\nA special map download is not needed, the view is created from our standard maps.
+		\n\nA special map download is not needed, the view is created from vector maps.
 		\n\nThis view can be reverted by either de-activating it again here, or by changing the \'Map style\' under \'Configure map\' as desired.
 	</string>
     <string name="plugin_nautical_name">Nautical map view</string>
@@ -2985,7 +2985,7 @@
     <string name="download_select_map_types">Other maps</string>
     <string name="download_roads_only_item">Roads only</string>
     <string name="download_srtm_maps">Contour lines</string>
-    <string name="download_regular_maps">Standard map</string>
+    <string name="download_regular_maps">Full map</string>
     <string name="download_roads_only_maps">Roads-only map</string>
     <string name="rendering_attr_alpineHiking_name">Alpine hiking scale (SAC)</string>
     <string name="rendering_attr_alpineHiking_description">Render paths according to the SAC scale.</string>
@@ -3357,7 +3357,7 @@
     <string name="first_time_msg">Thank you for using OsmAnd. Download regional data for offline use via \'Settings\' → \'Manage map files\' to view maps, locate addresses, look up POIs, find public transport and more.</string>
     <string name="basemap_was_selected_to_download">The basemap needed to provide basic functionality is in the download queue.</string>
     <string name="local_indexes_cat_tile">Online and cached tile maps</string>
-    <string name="local_indexes_cat_map">Standard maps (vector)</string>
+    <string name="local_indexes_cat_map">Vector maps</string>
     <string name="index_settings_descr">Download and manage offline map files stored on your device.</string>
     <string name="map_online_plugin_is_not_installed">Enable the \'Online maps\' plugin to select different map sources</string>
     <string name="map_online_data">Online and tile maps</string>
