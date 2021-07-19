@@ -1535,6 +1535,8 @@ public class OsmandSettings {
 	//}
 	public final CommonPreference<Boolean> AUTO_SPLIT_RECORDING = new BooleanPreference(this, "auto_split_recording", true).makeProfile();
 
+	public final CommonPreference<Boolean> POWERCHANGE_SPLIT_RECORDING = new BooleanPreference(this, "powerchange_split_recording", false).makeProfile();
+
 	public final CommonPreference<Boolean> SHOW_TRIP_REC_NOTIFICATION = new BooleanPreference(this, "show_trip_recording_notification", true).makeProfile();
 
 	// this value string is synchronized with settings_pref.xml preference name

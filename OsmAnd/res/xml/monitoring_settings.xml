@@ -75,6 +75,13 @@
 		android:title="@string/auto_split_recording_title" />
 
 	<net.osmand.plus.settings.preferences.SwitchPreferenceEx
+		android:key="powerchange_split_recording"
+		android:layout="@layout/preference_with_descr_dialog_and_switch"
+		android:summaryOff="@string/shared_string_disabled"
+		android:summaryOn="@string/shared_string_enabled"
+		android:title="@string/powerchange_split_recording_title" />
+
+	<net.osmand.plus.settings.preferences.SwitchPreferenceEx
 		android:key="disable_recording_once_app_killed"
 		android:layout="@layout/preference_with_descr_dialog_and_switch"
 		android:summaryOff="@string/shared_string_disabled"

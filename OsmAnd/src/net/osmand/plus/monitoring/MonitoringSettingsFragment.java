@@ -93,6 +93,7 @@ public class MonitoringSettingsFragment extends BaseSettingsFragment
 		setupSaveTrackPrecisionPref();
 		setupSaveTrackMinSpeedPref();
 		setupAutoSplitRecordingPref();
+		setupPowerchangeSplitRecordingPref();
 		setupDisableRecordingOnceAppKilledPref();
 		setupSaveHeadingToGpxPref();
 
@@ -222,6 +223,11 @@ public class MonitoringSettingsFragment extends BaseSettingsFragment
 	private void setupAutoSplitRecordingPref() {
 		SwitchPreferenceEx autoSplitRecording = (SwitchPreferenceEx) findPreference(settings.AUTO_SPLIT_RECORDING.getId());
 		autoSplitRecording.setDescription(getString(R.string.auto_split_recording_descr));
+	}
+
+	private void setupPowerchangeSplitRecordingPref() {
+		SwitchPreferenceEx powerchangeSplitRecording = (SwitchPreferenceEx) findPreference(settings.POWERCHANGE_SPLIT_RECORDING.getId());
+		powerchangeSplitRecording.setDescription(getString(R.string.powerchange_split_recording_descr));
 	}
 
 	private void setupDisableRecordingOnceAppKilledPref() {

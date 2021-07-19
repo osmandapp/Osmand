@@ -1870,6 +1870,8 @@
 	</string -->
     <string name="auto_split_recording_title">Auto-split recordings after gap</string>
     <string name="auto_split_recording_descr">Start new segment after gap of 6 min, new track after gap of 2 h, or new file after a longer gap if the date has changed.</string>
+    <string name="powerchange_split_recording_title">Auto-split recordings with power status.</string>
+    <string name="powerchange_split_recording_descr">Start new segment upon charging, and discharging.</string>
     <string name="rendering_attr_contourDensity_description">Contour line density</string>
     <string name="rendering_attr_contourDensity_name">Contour line density</string>
     <string name="rendering_value_high_name">High</string>
