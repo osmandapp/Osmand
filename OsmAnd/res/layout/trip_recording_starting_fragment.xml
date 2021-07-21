@@ -5,7 +5,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:orientation="vertical"
-	android:paddingBottom="@dimen/content_padding">
+	android:paddingBottom="@dimen/content_padding_small">
 
 	<net.osmand.plus.widgets.TextViewEx
 		android:id="@+id/title"
@@ -95,17 +95,10 @@
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:paddingBottom="@dimen/content_padding_small"
 			android:letterSpacing="@dimen/description_letter_spacing"
 			android:text="@string/trip_recording_logging_interval_info"
 			android:textColor="?attr/dialog_text_description_color" />
 
 	</LinearLayout>
-
-	<Space
-		android:layout_width="match_parent"
-		android:layout_height="@dimen/context_menu_first_line_top_margin" />
-
-	<include layout="@layout/preference_button_with_icon_triple" />
 
 </LinearLayout>

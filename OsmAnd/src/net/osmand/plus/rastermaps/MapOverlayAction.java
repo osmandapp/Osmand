@@ -162,7 +162,9 @@ public class MapOverlayAction extends SwitchableAction<Pair<String, String>> {
 		if (item.equals(KEY_NO_OVERLAY)) {
 			return context.getString(R.string.no_overlay);
 		} else {
-			return item;
+			return item.endsWith(IndexConstants.SQLITE_EXT)
+					? Algorithms.getFileNameWithoutExtension(item)
+					: item;
 		}
 	}
 

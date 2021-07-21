@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -110,36 +111,43 @@ public class TripRecordingStartingBottomSheet extends SideMenuBottomSheetDialogF
 				});
 
 		updateUpDownBtn();
+	}
 
-		CardView cardLeft = itemView.findViewById(R.id.button_left);
-		createItem(app, nightMode, cardLeft, ItemType.CANCEL, true, null);
-		cardLeft.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				dismiss();
-			}
-		});
+	@Override
+	protected void setupBottomButtons(ViewGroup view) {
+		LayoutInflater themedInflater = UiUtilities.getInflater(view.getContext(), nightMode);
+		int contentPadding = getDimen(R.dimen.content_padding);
+		int topPadding = getDimen(R.dimen.context_menu_first_line_top_margin);
+		View buttonsContainer = themedInflater.inflate(R.layout.preference_button_with_icon_triple, null);
+		buttonsContainer.setPadding(contentPadding, topPadding, contentPadding, contentPadding);
+		view.addView(buttonsContainer);
 
-		CardView cardCenter = itemView.findViewById(R.id.button_center);
-		createItemActive(app, nightMode, cardCenter, ItemType.START_RECORDING);
-		cardCenter.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				startRecording();
-			}
-		});
+		setupCancelButton(buttonsContainer);
+		setupStartButton(buttonsContainer);
+		setupSettingsButton(buttonsContainer);
+	}
 
-		CardView cardRight = itemView.findViewById(R.id.button_right);
-		createItem(app, nightMode, cardRight, ItemType.SETTINGS, true, null);
-		cardRight.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				MapActivity mapActivity = getMapActivity();
-				if (mapActivity != null) {
-					hide();
-					BaseSettingsFragment.showInstance(mapActivity, SettingsScreenType.MONITORING_SETTINGS,
-							null, new Bundle(), TripRecordingStartingBottomSheet.this);
-				}
+	private void setupCancelButton(View buttonsContainer) {
+		CardView cancelButton = buttonsContainer.findViewById(R.id.button_left);
+		createItem(app, nightMode, cancelButton, ItemType.CANCEL, true, null);
+		cancelButton.setOnClickListener(v -> dismiss());
+	}
+
+	private void setupStartButton(View buttonsContainer) {
+		CardView startButton = buttonsContainer.findViewById(R.id.button_center);
+		createItemActive(app, nightMode, startButton, ItemType.START_RECORDING);
+		startButton.setOnClickListener(v -> startRecording());
+	}
+
+	private void setupSettingsButton(View buttonsContainer) {
+		CardView settingsButton = buttonsContainer.findViewById(R.id.button_right);
+		createItem(app, nightMode, settingsButton, ItemType.SETTINGS, true, null);
+		settingsButton.setOnClickListener(v -> {
+			MapActivity mapActivity = getMapActivity();
+			if (mapActivity != null) {
+				hide();
+				BaseSettingsFragment.showInstance(mapActivity, SettingsScreenType.MONITORING_SETTINGS,
+						null, new Bundle(), TripRecordingStartingBottomSheet.this);
 			}
 		});
 	}
