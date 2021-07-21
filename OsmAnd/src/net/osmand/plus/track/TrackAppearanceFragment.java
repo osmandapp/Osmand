@@ -148,7 +148,10 @@ public class TrackAppearanceFragment extends ContextMenuScrollFragment implement
 
 		if (savedInstanceState != null) {
 			trackDrawInfo = new TrackDrawInfo(savedInstanceState);
-			if (!selectedGpxFile.isShowCurrentTrack()) {
+			if (selectedGpxFile == null) {
+				restoreSelectedGpxFile(trackDrawInfo.getFilePath(), trackDrawInfo.isCurrentRecording());
+			}
+			if (!trackDrawInfo.isCurrentRecording()) {
 				gpxDataItem = gpxDbHelper.getItem(new File(trackDrawInfo.getFilePath()));
 			}
 			showStartFinishIconsInitialValue = savedInstanceState.getBoolean(SHOW_START_FINISH_ICONS_INITIAL_VALUE_KEY,
@@ -176,6 +179,16 @@ public class TrackAppearanceFragment extends ContextMenuScrollFragment implement
 			public void handleOnBackPressed() {
 				dismiss();
 			}
+		});
+	}
+
+	private void restoreSelectedGpxFile(String gpxFilePath, boolean isCurrentRecording) {
+		TrackMenuFragment.loadSelectedGpxFile(requireMapActivity(), gpxFilePath, isCurrentRecording, (gpxFile) -> {
+			setSelectedGpxFile(gpxFile);
+			if (getView() != null) {
+				initContent(getView());
+			}
+			return true;
 		});
 	}
 
@@ -208,21 +221,27 @@ public class TrackAppearanceFragment extends ContextMenuScrollFragment implement
 
 			if (isPortrait()) {
 				updateCardsLayout();
-			}
-			setupCards();
-			setupButtons(view);
-			setupScrollShadow();
-			updateAppearanceIcon();
-			if (!isPortrait()) {
+			} else {
 				int widthNoShadow = getLandscapeNoShadowWidth();
 				FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(widthNoShadow, ViewGroup.LayoutParams.WRAP_CONTENT);
 				params.gravity = Gravity.BOTTOM | Gravity.START;
 				controlButtons.setLayoutParams(params);
 			}
-			enterTrackAppearanceMode();
-			runLayoutListener();
+
+			if (selectedGpxFile != null) {
+				initContent(view);
+			}
 		}
 		return view;
+	}
+
+	private void initContent(@NonNull View view) {
+		setupCards();
+		setupButtons(view);
+		setupScrollShadow();
+		updateAppearanceIcon();
+		enterTrackAppearanceMode();
+		runLayoutListener();
 	}
 
 	@Override

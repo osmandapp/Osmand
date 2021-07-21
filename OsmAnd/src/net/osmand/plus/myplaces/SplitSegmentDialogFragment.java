@@ -84,6 +84,10 @@ public class SplitSegmentDialogFragment extends DialogFragment {
 	@Override
 	public void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		if (displayHelper == null || gpxItem == null || trkSegment == null) {
+			dismiss();
+			return;
+		}
 		FragmentActivity activity = requireActivity();
 		app = (OsmandApplication) activity.getApplication();
 		ic = app.getUIUtilities();
