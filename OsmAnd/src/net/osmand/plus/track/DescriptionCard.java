@@ -24,16 +24,21 @@ import net.osmand.util.Algorithms;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.fragment.app.Fragment;
 
 import static net.osmand.plus.myplaces.TrackActivityFragmentAdapter.getMetadataImageLink;
 
 public class DescriptionCard extends MapBaseCard {
 
+	private final Fragment targetFragment;
 	private final GPXFile gpxFile;
 
-	public DescriptionCard(@NonNull MapActivity mapActivity, @NonNull GPXFile gpxFile) {
+	public DescriptionCard(@NonNull MapActivity mapActivity,
+	                       @NonNull Fragment targetFragment,
+	                       @NonNull GPXFile gpxFile) {
 		super(mapActivity);
 		this.gpxFile = gpxFile;
+		this.targetFragment = targetFragment;
 	}
 
 	@Override
@@ -90,7 +95,7 @@ public class DescriptionCard extends MapBaseCard {
 		readBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				GpxReadDescriptionDialogFragment.showInstance(mapActivity, title, imageUrl, descriptionHtml);
+				GpxReadDescriptionDialogFragment.showInstance(mapActivity, title, imageUrl, descriptionHtml, targetFragment);
 			}
 		});
 

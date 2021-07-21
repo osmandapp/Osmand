@@ -12,8 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
@@ -21,6 +19,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.RequestCreator;
 
 import net.osmand.AndroidUtils;
+import net.osmand.GPXUtilities.GPXFile;
 import net.osmand.PicassoUtils;
 import net.osmand.plus.OsmandApplication;
 import net.osmand.plus.R;
@@ -28,6 +27,7 @@ import net.osmand.plus.UiUtilities;
 import net.osmand.plus.base.BaseOsmAndDialogFragment;
 import net.osmand.plus.helpers.AndroidUiHelper;
 import net.osmand.plus.widgets.WebViewEx;
+import net.osmand.plus.wikivoyage.ArticleWebViewClient;
 import net.osmand.plus.wikivoyage.WikivoyageUtils;
 import net.osmand.util.Algorithms;
 
@@ -35,6 +35,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -51,6 +52,7 @@ public class GpxReadDescriptionDialogFragment extends BaseOsmAndDialogFragment {
 	private String title;
 	private String imageUrl;
 	private String contentHtml;
+	private GPXFile gpxFile;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,13 @@ public class GpxReadDescriptionDialogFragment extends BaseOsmAndDialogFragment {
 			readBundle(savedInstanceState);
 		} else if (args != null) {
 			readBundle(args);
+		}
+		Fragment targetFragment = getTargetFragment();
+		if (targetFragment instanceof TrackMenuFragment) {
+			TrackDisplayHelper displayHelper = ((TrackMenuFragment) targetFragment).getDisplayHelper();
+			if (displayHelper != null) {
+				gpxFile = displayHelper.getGpx();
+			}
 		}
 	}
 
@@ -168,13 +177,12 @@ public class GpxReadDescriptionDialogFragment extends BaseOsmAndDialogFragment {
 		});
 	}
 
-	private void setupWebView(final View view) {
+	private void setupWebView(View view) {
 		webView = view.findViewById(R.id.content);
 		webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 		if (Build.VERSION.SDK_INT >= 19) {
 			webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
-		}
-		else {
+		} else {
 			webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 		}
 		webView.setScrollbarFadingEnabled(true);
@@ -184,21 +192,20 @@ public class GpxReadDescriptionDialogFragment extends BaseOsmAndDialogFragment {
 		webView.getSettings().setDomStorageEnabled(true);
 		webView.getSettings().setLoadWithOverviewMode(true);
 		webView.getSettings().setRenderPriority(WebSettings.RenderPriority.HIGH);
-		webView.setWebViewClient(new WebViewClient() {
-			@Override
-			public void onPageCommitVisible(WebView webView, String url) {
-				super.onPageCommitVisible(webView, url);
-				if (getActivity() != null) {
-					setupDependentViews(view);
-				}
-			}
-		});
+		setupWebViewClient(view);
 		loadWebviewData();
 	}
 
 	public void updateContent(String content) {
 		contentHtml = content;
 		loadWebviewData();
+	}
+
+	public void setupWebViewClient(View view) {
+		FragmentActivity activity = getActivity();
+		if (activity != null && gpxFile != null) {
+			webView.setWebViewClient(new ArticleWebViewClient(this, activity, gpxFile, view, true));
+		}
 	}
 
 	private void loadWebviewData() {
@@ -210,7 +217,7 @@ public class GpxReadDescriptionDialogFragment extends BaseOsmAndDialogFragment {
 		}
 	}
 
-	private void setupDependentViews(final View view) {
+	public void setupDependentViews(final View view) {
 		View editBtn = view.findViewById(R.id.btn_edit);
 
 		Context ctx = editBtn.getContext();
@@ -240,7 +247,19 @@ public class GpxReadDescriptionDialogFragment extends BaseOsmAndDialogFragment {
 		return "<body style=\"color:white;\">\n" + content + "</body>\n";
 	}
 
-	public static void showInstance(@NonNull FragmentActivity activity, @NonNull String title, @Nullable String imageUrl, @NonNull String description) {
+	public void closeAll() {
+		Fragment target = getTargetFragment();
+		if (target instanceof TrackMenuFragment) {
+			((TrackMenuFragment) target).dismiss();
+		}
+		dismiss();
+	}
+
+	public static void showInstance(@NonNull FragmentActivity activity,
+	                                @NonNull String title,
+	                                @Nullable String imageUrl,
+	                                @NonNull String description,
+	                                @NonNull Fragment targetFragment) {
 		FragmentManager fragmentManager = activity.getSupportFragmentManager();
 		if (!fragmentManager.isStateSaved()) {
 			Bundle args = new Bundle();
@@ -250,6 +269,7 @@ public class GpxReadDescriptionDialogFragment extends BaseOsmAndDialogFragment {
 
 			GpxReadDescriptionDialogFragment fragment = new GpxReadDescriptionDialogFragment();
 			fragment.setArguments(args);
+			fragment.setTargetFragment(targetFragment, 0);
 			fragment.show(fragmentManager, GpxReadDescriptionDialogFragment.TAG);
 		}
 	}

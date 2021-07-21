@@ -472,7 +472,7 @@ public class TrackMenuFragment extends ContextMenuScrollFragment implements Card
 			addCardViewToHeader(overviewCard);
 		} else {
 			MapActivity mapActivity = requireMapActivity();
-			overviewCard = new OverviewCard(mapActivity, this, selectedGpxFile, analyses);
+			overviewCard = new OverviewCard(mapActivity, this, selectedGpxFile, analyses, this);
 			overviewCard.setListener(this);
 			headerContainer.addView(overviewCard.build(mapActivity));
 		}
@@ -620,7 +620,7 @@ public class TrackMenuFragment extends ContextMenuScrollFragment implements Card
 					}
 					cardsContainer.addView(descriptionCard.getView());
 				} else {
-					descriptionCard = new DescriptionCard(getMapActivity(), displayHelper.getGpx());
+					descriptionCard = new DescriptionCard(getMapActivity(), this, displayHelper.getGpx());
 					cardsContainer.addView(descriptionCard.build(mapActivity));
 				}
 			} else if (menuType == TrackMenuType.POINTS) {

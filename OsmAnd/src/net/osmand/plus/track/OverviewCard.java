@@ -13,6 +13,7 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.osmand.AndroidUtils;
@@ -49,17 +50,20 @@ public class OverviewCard extends MapBaseCard {
 	private final SelectedGpxFile selectedGpxFile;
 	private final GpxBlockStatisticsBuilder blockStatisticsBuilder;
 	private final GPXTrackAnalysis analysis;
+	private final Fragment targetFragment;
 
 	public GpxBlockStatisticsBuilder getBlockStatisticsBuilder() {
 		return blockStatisticsBuilder;
 	}
 
 	public OverviewCard(@NonNull MapActivity mapActivity, @NonNull SegmentActionsListener actionsListener,
-	                    @NonNull SelectedGpxFile selectedGpxFile, @Nullable GPXTrackAnalysis analysis) {
+	                    @NonNull SelectedGpxFile selectedGpxFile, @Nullable GPXTrackAnalysis analysis,
+	                    @NonNull Fragment targetFragment) {
 		super(mapActivity);
 		this.actionsListener = actionsListener;
 		this.selectedGpxFile = selectedGpxFile;
 		this.analysis = analysis;
+		this.targetFragment = targetFragment;
 		blockStatisticsBuilder = new GpxBlockStatisticsBuilder(app, selectedGpxFile, nightMode);
 	}
 
@@ -175,7 +179,7 @@ public class OverviewCard extends MapBaseCard {
 					GPXFile gpxFile = getGPXFile();
 					String title = gpxFile.metadata.getArticleTitle();
 					String imageUrl = getMetadataImageLink(gpxFile.metadata);
-					GpxReadDescriptionDialogFragment.showInstance(mapActivity, title, imageUrl, descriptionHtml);
+					GpxReadDescriptionDialogFragment.showInstance(mapActivity, title, imageUrl, descriptionHtml, targetFragment);
 				}
 			});
 			AndroidUiHelper.updateVisibility(description, true);

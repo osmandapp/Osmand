@@ -25,14 +25,12 @@ import net.osmand.plus.wikivoyage.article.WikivoyageArticleDialogFragment;
 import net.osmand.plus.wikivoyage.data.TravelArticle;
 import net.osmand.plus.wikivoyage.data.TravelArticle.TravelArticleIdentifier;
 import net.osmand.plus.wikivoyage.explore.WikivoyageExploreActivity;
-import net.osmand.util.MapUtils;
 
 import java.io.File;
 import java.util.List;
 
 import static net.osmand.plus.wikipedia.WikiArticleHelper.WIKIVOYAGE_DOMAIN;
 import static net.osmand.plus.wikipedia.WikiArticleHelper.WIKI_DOMAIN;
-import static net.osmand.util.MapUtils.ROUNDING_ERROR;
 
 
 /**
@@ -69,14 +67,7 @@ public class WikivoyageWebViewClient extends WebViewClient {
 		url = WikiArticleHelper.normalizeFileUrl(url);
 		boolean isWebPage = url.startsWith(PAGE_PREFIX_HTTP) || url.startsWith(PAGE_PREFIX_HTTPS);
 		if (url.contains(WIKIVOYAGE_DOMAIN) && isWebPage) {
-			String lang = WikiArticleHelper.getLang(url);
-			String articleName = WikiArticleHelper.getArticleNameFromUrl(url, lang);
-			TravelArticleIdentifier articleId = app.getTravelHelper().getArticleId(articleName, lang);
-			if (articleId != null) {
-				WikivoyageArticleDialogFragment.showInstance(app, fragmentManager, articleId, lang);
-			} else {
-				WikiArticleHelper.warnAboutExternalLoad(url, activity, nightMode);
-			}
+			WikivoyageUtils.processWikivoyageDomain(activity, url, nightMode);
 			return true;
 		} else if (url.contains(WIKI_DOMAIN) && isWebPage && article != null) {
 			LatLon articleCoordinates = parseCoordinates(url);
@@ -87,26 +78,13 @@ public class WikivoyageWebViewClient extends WebViewClient {
 			WikiArticleHelper.warnAboutExternalLoad(url, activity, nightMode);
 		} else if (url.startsWith(PREFIX_GEO)) {
 			if (article != null && article.getGpxFile() != null) {
-				List<WptPt> points = article.getGpxFile().getPoints();
-				WptPt gpxPoint = null;
+				GPXFile gpxFile = article.getGpxFile();
+				List<WptPt> points = gpxFile.getPoints();
 				String coordinates = url.replace(PREFIX_GEO, "");
-				double lat;
-				double lon;
-				try {
-					lat = Double.parseDouble(coordinates.substring(0, coordinates.indexOf(",")));
-					lon = Double.parseDouble(coordinates.substring(coordinates.indexOf(",") + 1));
-				} catch (NumberFormatException e) {
-					Log.w(TAG, e.getMessage(), e);
-					return true;
-				}
-				for (WptPt point : points) {
-					if (MapUtils.getDistance(point.getLatitude(), point.getLongitude(), lat, lon) < ROUNDING_ERROR) {
-						gpxPoint = point;
-						break;
-					}
-				}
+				WptPt gpxPoint = WikivoyageUtils.findNearestPoint(points, coordinates);
+
 				if (gpxPoint != null) {
-					final OsmandSettings settings = app.getSettings();
+					OsmandSettings settings = app.getSettings();
 					settings.setMapLocationToShow(gpxPoint.getLatitude(), gpxPoint.getLongitude(),
 							settings.getLastKnownMapZoom(),
 							new PointDescription(PointDescription.POINT_TYPE_WPT, gpxPoint.name),
@@ -121,7 +99,6 @@ public class WikivoyageWebViewClient extends WebViewClient {
 					fragmentManager.popBackStackImmediate();
 
 					File path = app.getTravelHelper().createGpxFile(article);
-					GPXFile gpxFile = article.getGpxFile();
 					gpxFile.path = path.getAbsolutePath();
 					app.getSelectedGpxHelper().setGpxFileToDisplay(gpxFile);
 					MapActivity.launchMapActivityMoveToTop(activity);
