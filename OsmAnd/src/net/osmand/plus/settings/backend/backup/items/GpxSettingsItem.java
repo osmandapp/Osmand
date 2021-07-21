@@ -15,7 +15,6 @@ import net.osmand.plus.settings.backend.backup.GpxAppearanceInfo;
 import net.osmand.plus.settings.backend.backup.SettingsItemReader;
 import net.osmand.plus.settings.backend.backup.SettingsItemType;
 import net.osmand.plus.track.GpxSplitType;
-import net.osmand.plus.track.GradientScaleType;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -101,10 +100,7 @@ public class GpxSettingsItem extends FileSettingsItem {
 		gpxDbHelper.updateShowArrows(dataItem, appearanceInfo.showArrows);
 		gpxDbHelper.updateShowStartFinish(dataItem, appearanceInfo.showStartFinish);
 		gpxDbHelper.updateSplit(dataItem, splitType, appearanceInfo.splitInterval);
-		gpxDbHelper.updateGradientScaleType(dataItem, appearanceInfo.scaleType);
-		gpxDbHelper.updateGradientScalePalette(dataItem, GradientScaleType.SPEED, appearanceInfo.gradientSpeedPalette);
-		gpxDbHelper.updateGradientScalePalette(dataItem, GradientScaleType.ALTITUDE, appearanceInfo.gradientAltitudePalette);
-		gpxDbHelper.updateGradientScalePalette(dataItem, GradientScaleType.SLOPE, appearanceInfo.gradientSlopePalette);
+		gpxDbHelper.updateColoringType(dataItem, appearanceInfo.coloringType);
 	}
 
 	private void createGpxAppearanceInfo() {

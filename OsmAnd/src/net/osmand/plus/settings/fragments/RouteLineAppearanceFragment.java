@@ -22,6 +22,8 @@ import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.base.ContextMenuScrollFragment;
 import net.osmand.plus.helpers.AndroidUiHelper;
 import net.osmand.plus.helpers.enums.DayNightMode;
+import net.osmand.plus.routepreparationmenu.cards.BaseCard;
+import net.osmand.plus.routepreparationmenu.cards.BaseCard.CardListener;
 import net.osmand.plus.routing.PreviewRouteLineInfo;
 import net.osmand.plus.routing.cards.RouteLineColorCard;
 import net.osmand.plus.routing.cards.RouteLineColorCard.OnMapThemeUpdateListener;
@@ -41,7 +43,7 @@ import static net.osmand.util.Algorithms.objectEquals;
 
 public class RouteLineAppearanceFragment extends ContextMenuScrollFragment
 		implements ColorPickerListener, OnMapThemeUpdateListener, OnSelectedColorChangeListener,
-		HeaderUiAdapter {
+		HeaderUiAdapter, CardListener {
 
 	public static final String TAG = RouteLineAppearanceFragment.class.getName();
 
@@ -176,6 +178,7 @@ public class RouteLineAppearanceFragment extends ContextMenuScrollFragment
 		cardsContainer.removeAllViews();
 
 		colorCard = new RouteLineColorCard(mapActivity, this, previewRouteLineInfo, initMapTheme, selectedMapTheme, this);
+		colorCard.setListener(this);
 		cardsContainer.addView(colorCard.build(mapActivity));
 
 		widthCard = new RouteLineWidthCard(mapActivity, previewRouteLineInfo, createScrollListener(), this);
@@ -465,6 +468,24 @@ public class RouteLineAppearanceFragment extends ContextMenuScrollFragment
 		if (getMapActivity() != null) {
 			getMapActivity().refreshMap();
 		}
+	}
+
+	@Override
+	public void onCardLayoutNeeded(@NonNull BaseCard card) {
+	}
+
+	@Override
+	public void onCardPressed(@NonNull BaseCard card) {
+		if (card instanceof RouteLineColorCard) {
+			if (widthCard != null) {
+				boolean dividerVisible = !previewRouteLineInfo.getRouteColoringType().isRouteInfoAttribute();
+				widthCard.updateTopDividerVisibility(dividerVisible);
+			}
+		}
+	}
+
+	@Override
+	public void onCardButtonPressed(@NonNull BaseCard card, int buttonIndex) {
 	}
 
 	public static boolean showInstance(@NonNull MapActivity mapActivity,

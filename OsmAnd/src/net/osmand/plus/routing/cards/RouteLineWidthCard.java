@@ -92,13 +92,17 @@ public class RouteLineWidthCard extends MapBaseCard implements HeaderInfo {
 		groupRecyclerView.setAdapter(widthAdapter);
 		groupRecyclerView.setLayoutManager(new LinearLayoutManager(app, RecyclerView.HORIZONTAL, false));
 
+		updateTopDividerVisibility(!previewRouteLineInfo.getRouteColoringType().isRouteInfoAttribute());
 		((TextView) view.findViewById(R.id.title)).setText(R.string.select_track_width);
 		tvSelectedType = view.findViewById(R.id.descr);
 		tvDescription = view.findViewById(R.id.description);
 		sliderContainer = view.findViewById(R.id.slider_container);
-		AndroidUiHelper.updateVisibility(view.findViewById(R.id.top_divider), isShowDivider());
 
 		initSelectedMode();
+	}
+
+	public void updateTopDividerVisibility(boolean visible) {
+		AndroidUiHelper.updateVisibility(view.findViewById(R.id.top_divider), visible);
 	}
 
 	private void initSelectedMode() {

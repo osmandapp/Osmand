@@ -102,11 +102,15 @@ public abstract class GeometryWayContext {
 	}
 
 	public void clearCustomColor() {
-		attrs.customColor = 0;
+		if (attrs != null) {
+			attrs.customColor = 0;
+		}
 	}
 
 	public void clearCustomShader() {
-		attrs.customColorPaint.setShader(null);
+		if (attrs != null) {
+			attrs.customColorPaint.setShader(null);
+		}
 	}
 
 	public int getStrokeColor(int sourceColor) {

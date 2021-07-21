@@ -12,6 +12,7 @@
 
 -->
 
+    <string name="track_has_no_needed_data">The track does not contain needed data.</string>
     <string name="explore_wikipedia_offline">Explore Wikipedia offline.</string>
     <string name="shared_string_purchased">Purchased</string>
     <string name="attribute">Attribute</string>

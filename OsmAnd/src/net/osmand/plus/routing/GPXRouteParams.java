@@ -22,7 +22,7 @@ import static net.osmand.router.RouteExporter.OSMAND_ROUTER_V2;
 
 public class GPXRouteParams {
 
-	private static final String OSMAND_ROUTER = "OsmAndRouter";
+	public static final String OSMAND_ROUTER = "OsmAndRouter";
 
 	protected List<LocationPoint> wpt;
 	protected List<RouteSegmentResult> route;

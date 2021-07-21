@@ -12,7 +12,6 @@ import net.osmand.GPXUtilities.GPXTrackAnalysis;
 import net.osmand.plus.GPXDatabase.GpxDataItem;
 import net.osmand.plus.api.SQLiteAPI.SQLiteConnection;
 import net.osmand.plus.track.GpxSplitType;
-import net.osmand.plus.track.GradientScaleType;
 
 import java.io.File;
 import java.util.List;
@@ -84,14 +83,8 @@ public class GpxDbHelper {
 		return res;
 	}
 
-	public boolean updateGradientScalePalette(@NonNull GpxDataItem item, @NonNull GradientScaleType gradientScaleType, int[] palette) {
-		boolean res = db.updateGradientScaleColor(item, gradientScaleType, palette);
-		putToCache(item);
-		return res;
-	}
-
-	public boolean updateGradientScaleType(@NonNull GpxDataItem item, @Nullable GradientScaleType gradientScaleType) {
-		boolean res = db.updateGradientScaleType(item, gradientScaleType);
+	public boolean updateColoringType(@NonNull GpxDataItem item, @Nullable String coloringType) {
+		boolean res = db.updateColoringType(item, coloringType);
 		putToCache(item);
 		return res;
 	}

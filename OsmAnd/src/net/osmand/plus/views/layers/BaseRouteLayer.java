@@ -16,7 +16,7 @@ import net.osmand.plus.UiUtilities;
 import net.osmand.plus.activities.MapActivity;
 import net.osmand.plus.render.OsmandRenderer;
 import net.osmand.plus.routing.PreviewRouteLineInfo;
-import net.osmand.plus.routing.RouteColoringType;
+import net.osmand.plus.routing.ColoringType;
 import net.osmand.plus.settings.backend.ApplicationMode;
 import net.osmand.plus.settings.backend.CommonPreference;
 import net.osmand.plus.settings.backend.OsmandSettings;
@@ -48,7 +48,7 @@ public abstract class BaseRouteLayer extends OsmandMapLayer {
 	protected boolean nightMode;
 
 	protected PreviewRouteLineInfo previewRouteLineInfo;
-	protected RouteColoringType routeColoringType = RouteColoringType.DEFAULT;
+	protected ColoringType routeColoringType = ColoringType.DEFAULT;
 	protected String routeInfoAttribute;
 
 	protected RenderingLineAttributes attrs;

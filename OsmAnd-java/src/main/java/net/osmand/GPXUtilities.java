@@ -1733,17 +1733,11 @@ public class GPXUtilities {
 			}			
 		}
 
-		public int[] getGradientScaleColor(String gradientScaleType) {
-			String clrValue = null;
+		public String getColoringType() {
 			if (extensions != null) {
-				clrValue = extensions.get(gradientScaleType);
+				return extensions.get("coloring_type");
 			}
-			return Algorithms.stringToGradientPalette(clrValue, gradientScaleType);
-		}
-
-		public void setGradientScaleColor(String gradientScaleType, int[] gradientScalePalette) {
-			getExtensionsToWrite().put(gradientScaleType,
-					Algorithms.gradientPaletteToString(gradientScalePalette, gradientScaleType));
+			return null;
 		}
 
 		public String getGradientScaleType() {
@@ -1753,8 +1747,8 @@ public class GPXUtilities {
 			return null;
 		}
 
-		public void setGradientScaleType(String gradientScaleType) {
-			getExtensionsToWrite().put("gradient_scale_type", gradientScaleType);
+		public void setColoringType(String coloringType) {
+			getExtensionsToWrite().put("coloring_type", coloringType);
 		}
 
 		public void removeGradientScaleType() {

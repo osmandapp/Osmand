@@ -92,6 +92,14 @@ public class RouteProvider {
 		return loc;
 	}
 
+	public static List<Location> locationsFromWpts(List<WptPt> wpts) {
+		List<Location> locations = new ArrayList<>(wpts.size());
+		for (WptPt pt : wpts) {
+			locations.add(createLocation(pt));
+		}
+		return locations;
+	}
+
 	public RouteCalculationResult calculateRouteImpl(RouteCalculationParams params) {
 		long time = System.currentTimeMillis();
 		if (params.start != null && params.end != null) {
@@ -821,15 +829,13 @@ public class RouteProvider {
 		return new RouteCalculationResult("Empty result");
 	}
 
-	protected static List<RouteSegmentResult> parseOsmAndGPXRoute(List<Location> points, GPXFile gpxFile,
-																  List<Location> segmentEndpoints,
-																  int selectedSegment) {
+	public static List<RouteSegmentResult> parseOsmAndGPXRoute(List<Location> points, GPXFile gpxFile,
+	                                                           List<Location> segmentEndpoints,
+	                                                           int selectedSegment) {
 		List<TrkSegment> segments = gpxFile.getNonEmptyTrkSegments(false);
 		if (selectedSegment != -1 && segments.size() > selectedSegment) {
 			TrkSegment segment = segments.get(selectedSegment);
-			for (WptPt p : segment.points) {
-				points.add(createLocation(p));
-			}
+			points.addAll(locationsFromWpts(segment.points));
 			RouteImporter routeImporter = new RouteImporter(segment);
 			return routeImporter.importRoute();
 		} else {
@@ -844,9 +850,7 @@ public class RouteProvider {
 		List<TrkSegment> segments = gpxFile.getNonEmptyTrkSegments(false);
 		if (selectedSegment != -1 && segments.size() > selectedSegment) {
 			TrkSegment segment = segments.get(selectedSegment);
-			for (WptPt wptPt : segment.points) {
-				points.add(createLocation(wptPt));
-			}
+			points.addAll(locationsFromWpts(segment.points));
 		} else {
 			collectPointsFromSegments(segments, points, segmentEndpoints);
 		}
@@ -856,9 +860,7 @@ public class RouteProvider {
 		Location lastPoint = null;
 		for (int i = 0; i < segments.size(); i++) {
 			TrkSegment segment = segments.get(i);
-			for (WptPt wptPt : segment.points) {
-				points.add(createLocation(wptPt));
-			}
+			points.addAll(locationsFromWpts(segment.points));
 			if (i <= segments.size() - 1 && lastPoint != null) {
 				segmentEndpoints.add(lastPoint);
 				segmentEndpoints.add(points.get((points.size() - segment.points.size())));

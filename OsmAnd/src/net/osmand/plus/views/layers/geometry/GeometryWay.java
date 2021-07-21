@@ -181,16 +181,16 @@ public abstract class GeometryWay<T extends GeometryWayContext, D extends Geomet
 				double dist = previous == -1 ? 0 : odistances.get(i);
 				if (!previousVisible) {
 					if (previous != -1) {
-						addLocation(tb, previous, style, tx, ty, angles, distances, dist, styles);
+						addLocation(tb, previous, dist, style, tx, ty, angles, distances, styles);
 					} else if (lastProjection != null) {
 						addLocation(tb, lastProjection.getLatitude(), lastProjection.getLongitude(),
-								getStyle(i - 1, style), tx, ty, angles, distances, dist, styles); // first point
+								dist, getStyle(i - 1, style), tx, ty, angles, distances, styles); // first point
 					}
 				}
-				addLocation(tb, i, style, tx, ty, angles, distances, dist, styles);
+				addLocation(tb, i, dist, style, tx, ty, angles, distances, styles);
 				previousVisible = true;
 			} else if (previousVisible) {
-				addLocation(tb, i, style, tx, ty, angles, distances, previous == -1 ? 0 : odistances.get(i), styles);
+				addLocation(tb, i, previous == -1 ? 0 : odistances.get(i), style, tx, ty, angles, distances, styles);
 				double distToFinish = 0;
 				for (int ki = i + 1; ki < odistances.size(); ki++) {
 					distToFinish += odistances.get(ki);
@@ -215,16 +215,16 @@ public abstract class GeometryWay<T extends GeometryWayContext, D extends Geomet
 		return leftLon <= lon && lon <= rightLon && bottomLat <= lat && lat <= topLat;
 	}
 
-	protected void addLocation(RotatedTileBox tb, int locationIdx, GeometryWayStyle<?> style,
-							   List<Float> tx, List<Float> ty, List<Double> angles, List<Double> distances,
-							   double dist, List<GeometryWayStyle<?>> styles) {
+	protected void addLocation(RotatedTileBox tb, int locationIdx, double dist, GeometryWayStyle<?> style,
+	                           List<Float> tx, List<Float> ty, List<Double> angles, List<Double> distances,
+	                           List<GeometryWayStyle<?>> styles) {
 		addLocation(tb, locationProvider.getLatitude(locationIdx), locationProvider.getLongitude(locationIdx),
-				style, tx, ty, angles, distances, dist, styles);
+				dist, style, tx, ty, angles, distances, styles);
 	}
 
-	protected void addLocation(RotatedTileBox tb, double latitude, double longitude, GeometryWayStyle<?> style,
-							 List<Float> tx, List<Float> ty, List<Double> angles, List<Double> distances,
-							 double dist, List<GeometryWayStyle<?>> styles) {
+	protected void addLocation(RotatedTileBox tb, double latitude, double longitude, double dist,
+	                           GeometryWayStyle<?> style, List<Float> tx, List<Float> ty,
+	                           List<Double> angles, List<Double> distances, List<GeometryWayStyle<?>> styles) {
 		float x = tb.getPixXFromLatLon(latitude, longitude);
 		float y = tb.getPixYFromLatLon(latitude, longitude);
 		float px = x;
@@ -252,7 +252,7 @@ public abstract class GeometryWay<T extends GeometryWayContext, D extends Geomet
 									  Location lastPoint, int startLocationIndex) {
 		if (leftLongitude <= lastPoint.getLongitude() && lastPoint.getLongitude() <= rightLongitude
 				&& bottomLatitude <= lastPoint.getLatitude() && lastPoint.getLatitude() <= topLatitude) {
-			addLocation(tb, lastPoint.getLatitude(), lastPoint.getLongitude(), style, tx, ty, angles, distances, 0, styles);
+			addLocation(tb, lastPoint.getLatitude(), lastPoint.getLongitude(), 0, style, tx, ty, angles, distances, styles);
 			previousVisible = true;
 		}
 		return previousVisible;

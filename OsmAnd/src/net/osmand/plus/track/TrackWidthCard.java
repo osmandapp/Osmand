@@ -47,8 +47,8 @@ public class TrackWidthCard extends MapBaseCard {
 	private View sliderContainer;
 	private RecyclerView groupRecyclerView;
 
-	public TrackWidthCard(MapActivity mapActivity, TrackDrawInfo trackDrawInfo,
-	                      OnNeedScrollListener onNeedScrollListener) {
+	public TrackWidthCard(@NonNull MapActivity mapActivity, @NonNull TrackDrawInfo trackDrawInfo,
+	                      @NonNull OnNeedScrollListener onNeedScrollListener) {
 		super(mapActivity);
 		this.trackDrawInfo = trackDrawInfo;
 		this.onNeedScrollListener = onNeedScrollListener;
@@ -62,6 +62,7 @@ public class TrackWidthCard extends MapBaseCard {
 
 	@Override
 	protected void updateContent() {
+		updateTopDividerVisibility(!trackDrawInfo.getColoringType().isRouteInfoAttribute());
 		updateHeader();
 		updateCustomWidthSlider();
 
@@ -70,14 +71,16 @@ public class TrackWidthCard extends MapBaseCard {
 		groupRecyclerView.setAdapter(widthAdapter);
 		groupRecyclerView.setLayoutManager(new LinearLayoutManager(app, RecyclerView.HORIZONTAL, false));
 		scrollMenuToSelectedItem();
-
-		AndroidUiHelper.updateVisibility(view.findViewById(R.id.top_divider), isShowDivider());
 	}
 
 	public void updateItems() {
 		if (widthAdapter != null) {
 			widthAdapter.notifyDataSetChanged();
 		}
+	}
+
+	public void updateTopDividerVisibility(boolean visible) {
+		AndroidUiHelper.updateVisibility(view.findViewById(R.id.top_divider), visible);
 	}
 
 	@Nullable

@@ -15,7 +15,6 @@ public class PreviewRouteLineInfo {
 	private static final String CUSTOM_COLOR_DAY = "custom_color_day";
 	private static final String CUSTOM_COLOR_NIGHT = "custom_color_night";
 	private static final String ROUTE_COLORING_TYPE = "route_coloring_type";
-	private static final String ROUTE_INFO_ATTRIBUTE = "route_info_attribute";
 	private static final String LINE_WIDTH = "line_width";
 	private static final String NAVIGATION_ICON_ID = "navigation_icon_id";
 	private static final String NAVIGATION_ICON_COLOR = "navigation_icon_color";
@@ -29,7 +28,7 @@ public class PreviewRouteLineInfo {
 	private int customColorDay;
 	@ColorInt
 	private int customColorNight;
-	private RouteColoringType coloringType = RouteColoringType.DEFAULT;
+	private ColoringType coloringType = ColoringType.DEFAULT;
 	private String routeInfoAttribute;
 	private String width;
 
@@ -45,7 +44,7 @@ public class PreviewRouteLineInfo {
 
 	public PreviewRouteLineInfo(@ColorInt int customColorDay,
 	                            @ColorInt int customColorNight,
-	                            @NonNull RouteColoringType coloringType,
+	                            @NonNull ColoringType coloringType,
 	                            @Nullable String routeInfoAttribute,
 	                            @Nullable String width) {
 		this.customColorDay = customColorDay;
@@ -81,7 +80,7 @@ public class PreviewRouteLineInfo {
 		}
 	}
 
-	public void setRouteColoringType(@NonNull RouteColoringType coloringType) {
+	public void setRouteColoringType(@NonNull ColoringType coloringType) {
 		this.coloringType = coloringType;
 	}
 
@@ -122,7 +121,7 @@ public class PreviewRouteLineInfo {
 	}
 
 	@NonNull
-	public RouteColoringType getRouteColoringType() {
+	public ColoringType getRouteColoringType() {
 		return coloringType;
 	}
 
@@ -168,8 +167,8 @@ public class PreviewRouteLineInfo {
 		if (bundle.containsKey(CUSTOM_COLOR_NIGHT)) {
 			customColorNight = bundle.getInt(CUSTOM_COLOR_NIGHT);
 		}
-		coloringType = RouteColoringType.getColoringTypeByName(bundle.getString(ROUTE_COLORING_TYPE));
-		routeInfoAttribute = bundle.getString(ROUTE_INFO_ATTRIBUTE);
+		coloringType = ColoringType.getRouteColoringTypeByName(bundle.getString(ROUTE_COLORING_TYPE));
+		routeInfoAttribute = ColoringType.getRouteInfoAttribute(bundle.getString(ROUTE_COLORING_TYPE));
 		width = bundle.getString(LINE_WIDTH);
 		iconId = bundle.getInt(NAVIGATION_ICON_ID);
 		iconColor = bundle.getInt(NAVIGATION_ICON_COLOR);
@@ -182,10 +181,7 @@ public class PreviewRouteLineInfo {
 	public void saveToBundle(@NonNull Bundle bundle) {
 		bundle.putInt(CUSTOM_COLOR_DAY, customColorDay);
 		bundle.putInt(CUSTOM_COLOR_NIGHT, customColorNight);
-		bundle.putString(ROUTE_COLORING_TYPE, coloringType.getName());
-		if (routeInfoAttribute != null) {
-			bundle.putString(ROUTE_INFO_ATTRIBUTE, routeInfoAttribute);
-		}
+		bundle.putString(ROUTE_COLORING_TYPE, coloringType.getName(routeInfoAttribute));
 		if (width != null) {
 			bundle.putString(LINE_WIDTH, width);
 		}

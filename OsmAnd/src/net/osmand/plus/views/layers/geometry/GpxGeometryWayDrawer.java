@@ -11,10 +11,17 @@ import android.graphics.PorterDuffColorFilter;
 import net.osmand.AndroidUtils;
 import net.osmand.plus.views.layers.geometry.GpxGeometryWay.GeometryArrowsStyle;
 
-public class GpxGeometryWayDrawer extends GeometryWayDrawer<GpxGeometryWayContext> {
+public class GpxGeometryWayDrawer extends MultiColoringGeometryWayDrawer<GpxGeometryWayContext> {
 
 	public GpxGeometryWayDrawer(GpxGeometryWayContext context) {
 		super(context);
+	}
+
+	@Override
+	public void drawPath(Canvas canvas, DrawPathData pathData) {
+		if (coloringType.isRouteInfoAttribute()) {
+			drawCustomSolid(canvas, pathData);
+		}
 	}
 
 	@Override
@@ -22,7 +29,7 @@ public class GpxGeometryWayDrawer extends GeometryWayDrawer<GpxGeometryWayContex
 		return new ArrowPathPoint(iconx, icony, angle, style);
 	}
 
-	private static class ArrowPathPoint extends PathPoint {
+	private static class ArrowPathPoint extends ColorDependentArrowPathPoint {
 
 		ArrowPathPoint(float x, float y, double angle, GeometryWayStyle<?> style) {
 			super(x, y, angle, style);
@@ -30,7 +37,7 @@ public class GpxGeometryWayDrawer extends GeometryWayDrawer<GpxGeometryWayContex
 
 		@Override
 		void draw(Canvas canvas, GeometryWayContext context) {
-			if (style instanceof GeometryArrowsStyle) {
+			if (style instanceof GeometryArrowsStyle && shouldDrawArrow()) {
 				Context ctx = style.getCtx();
 				GeometryArrowsStyle arrowsWayStyle = (GeometryArrowsStyle) style;
 				Bitmap bitmap = style.getPointBitmap();
