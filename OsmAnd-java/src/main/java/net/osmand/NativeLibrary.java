@@ -277,7 +277,7 @@ public class NativeLibrary {
 			RenderingRuleSearchRequest request, boolean skipDuplicates, int renderRouteDataFile, Object objectWithInterruptedField,
 			String msgIfNothingFound);
 
-	protected static native boolean initFontType(byte[] byteData, String name, boolean bold, boolean italic);
+	protected static native boolean initFontType(String pathToFont, String name, boolean bold, boolean italic);
 	
 	protected static native RenderedObject[] searchRenderedObjects(RenderingContext context, int x, int y, boolean notvisible);
 	
@@ -419,37 +419,29 @@ public class NativeLibrary {
 
 			private int order(File a) {
 				final String nm = a.getName().toLowerCase();
-				if(nm.contains("OpenSans".toLowerCase())) {
-					if(nm.contains("Regular".toLowerCase())) {
-						return 0;
-					}
-					return 1;
+				boolean hasNumber = Character.isDigit(nm.charAt(0)) && Character.isDigit(nm.charAt(1));
+				if (hasNumber) {
+					// numeric fonts 05_NotoSans .. 65_NotoSansNastaliqUrdu
+					return Integer.parseInt(nm.substring(0,1));
+				} else if (nm.contains("NotoSans".toLowerCase())) {
+					// downloaded fonts (e.g. NotoSans-Japanese.otf)
+					return 100;
 				}
-				if(nm.contains("Fallback".toLowerCase())) {
-					return 3;
-				}
-				if(nm.contains("MTLmr3m".toLowerCase())) {
-					return 5;
-				}
-				return 2;
+				// other (e.g. DroidSansFallback.ttf for Chinese and Japanese)
+				return 101;
 			}
 		});
-		for(File f : lst) {
+		for (File f : lst) {
 			final String name = f.getName();
-			if(!name.endsWith(".ttf") && !name.endsWith(".otf")) {
+			if (!name.endsWith(".ttf") && !name.endsWith(".otf")) {
 				continue;
 			}
-			try {
-				ByteArrayOutputStream ous = new ByteArrayOutputStream();
-				FileInputStream fis = new FileInputStream(f);
-				Algorithms.streamCopy(fis, ous);
-				fis.close();
-				System.out.println("FONT " + name);
-				initFontType(ous.toByteArray(), name.substring(0, name.length() - 4), name.toLowerCase().contains("bold"),
-						name.toLowerCase().contains("italic"));
-			} catch (IOException e) {
-				e.printStackTrace();
+			if (name.contains("Roboto".toLowerCase())) {
+				// Roboto-Regular.ttf Roboto-Medium.ttf used in Android UI only
+				continue;
 			}
+			initFontType(f.getAbsolutePath(), name.substring(0, name.length() - 4), name.toLowerCase().contains("bold"),
+					name.toLowerCase().contains("italic"));
 		}
 		
 	}

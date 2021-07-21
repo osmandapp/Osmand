@@ -15,14 +15,18 @@ public class Reshaper {
 	
 	public static String reshape(byte[] bytes) {
 		try {
-			return reshape(new String(bytes, "UTF-8"));
+			return reshape(new String(bytes, "UTF-8"), false);
 		} catch (UnsupportedEncodingException e) {
 			return "";
 		}
 	}
 	
 	public static String reshape(String s) {
-		try {
+		return reshape(s, true);
+	}
+
+	public static String reshape(String s, boolean reshape) {
+		if (reshape) {
 			ArabicShaping as = new ArabicShaping(ArabicShaping.LETTERS_SHAPE |
 					ArabicShaping.LENGTH_GROW_SHRINK);
 			//printSplit("B", s);
@@ -32,6 +36,16 @@ public class Reshaper {
 				LOG.error(e.getMessage(), e);
 			}
 			//printSplit("A", s);
+		}
+		s = bidiShape(s, reshape);
+
+		return s;
+	}
+
+	public static String bidiShape(String s, boolean mirror) {
+		String originalS = s;
+		try {
+
 			Bidi line = new Bidi(s.length(), s.length());
 			line.setPara(s,  Bidi.LEVEL_DEFAULT_LTR, null);
 //			line.setPara(s, Bidi.LEVEL_DEFAULT_LTR, null);
@@ -40,7 +54,7 @@ public class Reshaper {
 			byte direction = line.getDirection();
 	        if (direction != Bidi.MIXED) {
 	            // unidirectional
-				if (line.isLeftToRight()) {
+				if (line.isLeftToRight() || !mirror) {
 					return s;
 				} else {
 	        		char[] chs = new char[s.length()];
@@ -65,23 +79,30 @@ public class Reshaper {
 					int limit = run.getLimit();
 					int begin = ltr ? start : limit - 1;
 					int end = ltr ? limit : start - 1;
+//					int end = ltr ? start - 1: limit;
+//					int begin = ltr ? limit - 1 : start;
 					int ind = begin;
+
 					while (ind != end) {
 						char ch = s.charAt(ind);
-						if (!ltr) {
+						if (!ltr) { // !
 							ch = mirror(ch);
 						}
 						res.append(ch);
 						runs.append(ch);
-						if (ltr) {
+						if (ltr) { // !
 							ind++;
 						} else {
 							ind--;
 						}
 						
 					}
-					printSplit(run.getDirection() + " " + run.getEmbeddingLevel(), runs.toString());
+					//printSplit(run.getDirection() + " " + run.getEmbeddingLevel(), runs.toString());
 				}
+				if (!mirror) {
+					res.reverse();
+				}
+				//printSplit("Split", res.reverse().toString());
 				return res.toString();
 			}
 		} catch (RuntimeException e) {

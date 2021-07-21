@@ -1,5 +1,5 @@
 APP_STL := c++_shared
-APP_CPPFLAGS := -std=c++11 -fexceptions -frtti
+APP_CPPFLAGS := -std=c++14 -fexceptions -frtti
 APP_SHORT_COMMANDS := true
 
 # Specify least supported Android platform version
