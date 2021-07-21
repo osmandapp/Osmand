@@ -17,31 +17,31 @@
     <string name="attribute">Attribute</string>
     <string name="backup_restore_now">Restore now</string>
     <string name="backup_setup">Set up backup</string>
-    <string name="backup_welcome_back_descr">You can restore data on this device using existing backups or set up a backup of this device to OsmAnd Cloud.</string>
+    <string name="backup_welcome_back_descr">Restore data on this device using existing backups, or back up the device to OsmAnd Cloud.</string>
     <string name="backup_welcome_back">Welcome back!</string>
-    <string name="backup_dont_have_any_descr">Set up an automatic backup so you don\'t have to worry about lost data.</string>
+    <string name="backup_dont_have_any_descr">Set up an auto-backup to not worry about lost data.</string>
     <string name="backup_do_not_have_any">You don\'t have any online backup yet</string>
     <string name="shared_string_progress">Progress</string>
-    <string name="backup_data_removed">All data is removed</string>
-    <string name="backup_version_history_removed">All version history is removed</string>
-    <string name="backup_deleted_all_data_descr">All your data was successfully deleted from OsmAnd Cloud.</string>
-    <string name="backup_deleting_all_data_descr">Please wait until OsmAnd delete all your data from cloud. All data on the device remain untouch.</string>
+    <string name="backup_data_removed">All data was removed</string>
+    <string name="backup_version_history_removed">All version history was removed</string>
+    <string name="backup_deleted_all_data_descr">All your data was deleted from OsmAnd Cloud.</string>
+    <string name="backup_deleting_all_data_descr">Please wait until OsmAnd deletes all your data from OsmAnd Cloud. All data on the device will remain untouched.</string>
     <string name="backup_deleted_all_data">Deleted all data</string>
-    <string name="backup_deleting_all_data">Deleting all data</string>
-    <string name="logout_from_osmand_cloud_decsr">Are you sure you want to log out?\nYou will need to sign in again to backup or restore the data.</string>
-    <string name="logout_from_osmand_cloud">Logout from OsmAnd Cloud</string>
+    <string name="backup_deleting_all_data">Deleting all data…</string>
+    <string name="logout_from_osmand_cloud_decsr">Log out?\nYou must sign in again to back up or restore data.</string>
+    <string name="logout_from_osmand_cloud">Log out from OsmAnd Cloud</string>
     <string name="duration_moment_ago">a moment ago</string>
     <string name="release_4_0">
-    • Cloud backup\n\n
-    • Added night mode for \"Topo\" rendering style\n\n
-    • Added option to download Contour lines in feet\n\n
-    • Tracks can now be colored by altitude, speed, or slope.\n\n
-    • Updated \"Trip recording\" dialog\n\n
-    • Distance by tap moved from the Radius ruler into a separate option\n\n
-    • Plan Route: added ability to change navigation options, accessing configure map and search without leaving plan route\n\n
-    • New \"Purchase\" screen with detailed information about purchasing\n\n
-    • Added option to change the route line appearance.\n\n
-    • OsmAnd Live updates moved to \"Downloads > Updates\"\n\n
+    • Cloud backup.\n
+    • Added night mode for \"Topo\" rendering style.\n
+    • Added option to download contour lines in feet.\n
+    • Tracks can now be colored by altitude, speed, or slope.\n
+    • Updated \"Trip recording\" dialog.\n
+    • Distance by tap moved from the radius ruler into a separate option.\n
+    • Plan Route: added ability to change navigation options, accessing configure map and search without leaving plan route.\n
+    • New \"Purchase\" screen with detailed info about purchasing.\n
+    • Added option to change the route line appearance.\n
+    • OsmAnd Live updates moved to \'Downloads\' → \'Updates\'.\n
     </string>
     <string name="approximate_route_description">Attach the route to roads on the map to get all turns and additional data, like smoothness, road types etc.</string>
     <string name="contour_lines_hillshades_slope">Contour lines, hillshades, slope</string>
@@ -59,7 +59,7 @@
     <string name="shared_string_view_all">View all</string>
     <string name="shared_string_discussion">Discussion</string>
     <string name="backup_delete_types">Delete disabled data types</string>
-    <string name="backup_delete_types_descr">Delete all data for deprecated data types from OsmAnd cloud?</string>
+    <string name="backup_delete_types_descr">Delete all data for deprecated data types from OsmAnd Cloud?</string>
     <string name="from_with_param">From %1$s</string>
     <string name="regular_price">Regular price</string>
     <string name="complete_purchase">Complete purchase</string>
@@ -99,7 +99,7 @@
     <string name="routing_attr_avoid_tunnels_name">Avoid tunnels</string>
     <string name="routing_attr_avoid_tunnels_description">Avoid tunnels</string>
     <string name="delete_version_history">Delete version history</string>
-    <string name="backup_version_history_delete_descr">Delete the changelog for deprecated data types from OsmAnd cloud?</string>
+    <string name="backup_version_history_delete_descr">Delete the changelog for deprecated data types from OsmAnd Cloud?</string>
     <string name="backup_storage_taken">Storage taken</string>
     <string name="backup_version_history">Version history</string>
     <string name="grey_color_slope">Grey color is used when slope is undefined.</string>
@@ -186,14 +186,14 @@
     <string name="srtm_unit_format">Contour lines unit variant</string>
     <string name="shared_string_feet">feet</string>
     <string name="update_all_maps_added">Update all maps added to %1$s?</string>
-    <string name="release_4_0_beta">
+    <!-- string name="release_4_0_beta">
     • Added option to download Contour lines in feet\n\n
     • Plan Route landscape: added tabs to switch between points or graphs\n\n
-    • OsmAnd Live updates moved to \"Downloads > Updates\"\n\n
+    • OsmAnd Live updates moved to \'Downloads\' → \'Updates\'.\n\n
     • Tracks can now be colored by altitude, speed, or slope.\n\n
     • Added option to change the route line appearance.\n\n
     • Updated \"Trip recording\" dialog\n\n
-    </string>
+    </string -->
     <string name="expired">Expired</string>
     <string name="on_hold">On hold</string>
     <string name="in_grace_period">In grace period</string>
@@ -351,12 +351,12 @@
     <string name="shared_string_last_used">Last used</string>
     <string name="profile_by_default_description">Select the profile, that will be used on application start.</string>
     <string name="reverse_all_points">Reverse all points</string>
-    <string name="release_3_9">
+    <!-- string name="release_3_9">
     • Added option to export and import all data including settings, resources, my places\n\n
     • Plan Route: graphs for track segments with route, and added the ability to create and edit multiple track segments\n\n
     • Added OAuth authentication method for OpenStreetMap, improved UI of OSM dialogs\n\n
     • Support custom colors for favorites and track waypoints\n\n
-    </string>
+    </string -->
     <string name="profile_type_user_string">User profile</string>
     <string name="profile_type_osmand_string">OsmAnd profile</string>
     <string name="plan_route_add_new_segment">Add a new segment</string>
@@ -449,7 +449,7 @@
     <string name="sort_name_ascending">Name: A – Z</string>
     <string name="sort_name_descending">Name: Z – A</string>
     <string name="sort_last_modified">Last modified</string>
-    <string name="release_3_8">
+    <!-- string name="release_3_8">
     • Updated "Plan a route" function: allows using different navigation types per segment and the inclusion of tracks\n\n
     • New "Appearance" menu for tracks: select color, thickness, display direction arrows, start and finish icons\n\n
     • Improved visibility of bicycle nodes.\n\n
@@ -457,7 +457,7 @@
     • Improved "Search" algorithms\n\n
     • Improved "Follow track" options in Navigation\n\n
     • Fixed issues with import/export of profile settings\n\n
-    </string>
+    </string -->
     <string name="shared_string_redo">Redo</string>
     <string name="one_point_error">Please add at least two points.</string>
     <string name="shared_string_is_saved">is saved</string>
@@ -638,7 +638,7 @@
     <string name="parking_positions">Parking positions</string>
     <string name="create_edit_poi">Create or edit POI</string>
     <string name="quick_action_transport_descr">Button showing or hiding public transport on the map.</string>
-    <string name="release_3_7">
+    <!--string name="release_3_7">
     • New offline Slope maps\n\n
     • Full customization of Favorites and GPX Waypoints – custom colors, icons, shapes\n\n
     • Customize items order in \"Context Menu\", \"Configure Map\" and \"Drawer\"\n\n
@@ -647,7 +647,7 @@
     • Added options to restore settings for custom profiles\n\n
     • Full GPX routes from navigation support traffic lanes and complete turn instructions\n\n
     • Fix UI sizes on tablets\n\n
-    • Fix bugs with RTL\n\n</string>
+    • Fix bugs with RTL\n\n</string -->
     <string name="navigation_profiles_item">Navigation profiles</string>
     <string name="legend_item_description">The guide to a map\'s symbology.</string>
     <string name="osmand_purchases_item">OsmAnd purchases</string>
@@ -794,7 +794,7 @@
     <string name="route_recalculation_dist_descr">The route will be recalculated if the distance to the route is longer than specified parameter</string>
     <string name="routing_profile_direct_to">Direct-to-point</string>
     <string name="clear_recorded_data">Clear recorded data</string>
-    <string name="release_3_6">
+    <!-- string name="release_3_6">
     • Profiles: now you can change order, set icon for map, change all setting for base profiles and restore them back to defaults\n\n
     • Added exit number in the navigation\n\n
     • Reworked plugin settings\n\n
@@ -807,7 +807,7 @@
     • Added support for multiline description in Settings\n\n
     • Added correct transliteration into the map of Japan\n\n
     • Added Antarctica map\n\n
-    </string>
+    </string -->
     <string name="copy_coordinates">Copy coordinates</string>
     <string name="reset_to_default_category_button_promo">\'Reset to default\' will reinstate the sort order to the installation default.</string>
     <string name="use_system_screen_timeout">Use the system screen timeout</string>
@@ -939,7 +939,7 @@
     <string name="shared_preference">Shared</string>
     <string name="routing_attr_driving_style_prefer_unpaved_name">Prefer unpaved roads</string>
     <string name="routing_attr_driving_style_prefer_unpaved_description">Prefer unpaved over paved roads for routing.</string>
-    <string name="release_3_5">
+    <!-- string name="release_3_5">
     • Updated app and profile settings: Settings are now arranged by type. Each profile can be customized separately.\n\n
     • New map download dialog suggesting a map to download while browsing\n\n
     • Dark theme fixes\n\n
@@ -948,7 +948,7 @@
     • Fixed flooded areas around the world\n\n
     • Ski routing: Added elevation profile and route complexity to the route details\n\n
     • Other bugfixes\n\n
-    </string>
+    </string -->
     <string name="shared_string_memory_used_tb_desc">Used %1$s TB</string>
     <string name="shared_string_memory_used_gb_desc">Used %1$s GB</string>
     <string name="shared_string_memory_used_mb_desc">Used %1$s MB</string>
@@ -975,7 +975,7 @@
     <string name="rendering_attr_piste_difficulty_aerialway_name">Aerialway</string>
     <string name="rendering_attr_piste_difficulty_connection_name">Connection</string>
     <string name="avoid_in_routing_descr_">Avoid certain routes and road types</string>
-    <string name="change_data_storage_full_description">Move OsmAnd data files to the new destination?\n%1$s > %2$s</string>
+    <string name="change_data_storage_full_description">Move OsmAnd data files to the new destination?\n\'%1$s\' → \'%2$s\'</string>
     <string name="data_storage_preference_summary">%1$s • %2$s</string>
     <string name="data_storage_space_description">%1$s GB free (of %2$s GB)</string>
     <string name="enter_path_to_folder">Enter path to the folder</string>
@@ -1109,7 +1109,7 @@
     <string name="routing_attr_max_num_changes_description">Specify upper limit of changes</string>
     <string name="routing_attr_max_num_changes_name">Number of changes</string>
     <string name="app_mode_ufo">UFO</string>
-    <string name="release_3_4">
+    <!-- string name="release_3_4">
     • App profiles: Create a custom profile for your own needs, with a custom icon and color\n\n
     • Now customize any profile\'s default and min/max speeds\n\n
     • Added a widget for the current coordinates\n\n
@@ -1120,7 +1120,7 @@
     • Fixed Wikipedia language selection\n\n
     • Fixed compass button behavior during navigation\n\n
     • Other bugfixes\n\n
-    </string>
+    </string -->
     <string name="precision_hdop_and_vdop">Horizontal precision: %1$s, vertical: %2$s</string>
     <string name="precision_hdop">Horizontal precision: %s</string>
     <string name="app_mode_personal_transporter">Personal transporter</string>
@@ -4142,7 +4142,7 @@
     <string name="contact_us">Contact</string>
     <string name="map_legend">Map legend</string>
     <string name="save_poi_too_many_uppercase">The name contains too many capital letters. Continue?</string>
-    <string name="save_poi_without_poi_type_message">Do you really want to save POI without type?</string>
+    <string name="save_poi_without_poi_type_message">Save POI without type?</string>
     <string name="poi_context_menu_modify_osm_change">Modify OSM change</string>
     <string name="use_dashboard_btn">Use dashboard</string>
     <string name="use_drawer_btn">Use menu</string>
